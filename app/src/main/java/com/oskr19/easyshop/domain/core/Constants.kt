@@ -1,4 +1,4 @@
-package com.oskr19.easyshop.domain.common
+package com.oskr19.easyshop.domain.core
 
 /**
  * Created by oscar.vergara on 24/07/2021

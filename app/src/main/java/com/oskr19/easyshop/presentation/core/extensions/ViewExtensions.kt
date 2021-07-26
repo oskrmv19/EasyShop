@@ -1,4 +1,4 @@
-package com.oskr19.easyshop.presentation.common.extensions
+package com.oskr19.easyshop.presentation.core.extensions
 
 import android.view.View
 import androidx.databinding.BindingAdapter

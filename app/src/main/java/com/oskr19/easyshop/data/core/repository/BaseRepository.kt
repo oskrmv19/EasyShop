@@ -1,7 +1,7 @@
-package com.oskr19.easyshop.data.common.repository
+package com.oskr19.easyshop.data.core.repository
 
-import com.oskr19.easyshop.domain.common.failure.Failure
-import com.oskr19.easyshop.domain.common.network.INetworkHandler
+import com.oskr19.easyshop.domain.core.failure.Failure
+import com.oskr19.easyshop.domain.core.network.INetworkHandler
 import retrofit2.HttpException
 import java.net.ConnectException
 import java.net.SocketTimeoutException

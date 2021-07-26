@@ -1,4 +1,4 @@
-package com.oskr19.easyshop.data.common.database
+package com.oskr19.easyshop.data.core.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

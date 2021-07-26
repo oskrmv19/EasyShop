@@ -1,4 +1,4 @@
-package com.oskr19.easyshop.presentation.common.dialog
+package com.oskr19.easyshop.presentation.core.dialog
 
 import android.content.Context
 import android.text.TextUtils

@@ -1,4 +1,4 @@
-package com.oskr19.easyshop.presentation.common.dialog
+package com.oskr19.easyshop.presentation.core.dialog
 
 /**
  * Created by oscar.vergara on 30/06/2021

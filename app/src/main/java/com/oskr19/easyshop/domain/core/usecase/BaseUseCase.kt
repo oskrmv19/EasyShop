@@ -1,4 +1,4 @@
-package com.oskr19.easyshop.domain.common.usecase
+package com.oskr19.easyshop.domain.core.usecase
 
 import kotlinx.coroutines.flow.Flow
 

@@ -1,4 +1,4 @@
-package com.oskr19.easyshop.data.common.mapper
+package com.oskr19.easyshop.data.core.mapper
 
 /**
  * Created by oscar.vergara on 24/07/2021

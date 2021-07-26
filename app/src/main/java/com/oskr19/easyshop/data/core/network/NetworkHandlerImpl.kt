@@ -1,10 +1,10 @@
-package com.oskr19.easyshop.data.common.network
+package com.oskr19.easyshop.data.core.network
 
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
-import com.oskr19.easyshop.domain.common.network.INetworkHandler
+import com.oskr19.easyshop.domain.core.network.INetworkHandler
 
 /**
  * Created by oscar.vergara on 24/07/2021

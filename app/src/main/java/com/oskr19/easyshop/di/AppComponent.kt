@@ -2,9 +2,9 @@ package com.oskr19.easyshop.di
 
 import android.content.Context
 import androidx.room.Room
-import com.oskr19.easyshop.data.common.database.LocalDatabase
-import com.oskr19.easyshop.data.common.network.NetworkHandlerImpl
-import com.oskr19.easyshop.domain.common.network.INetworkHandler
+import com.oskr19.easyshop.data.core.database.LocalDatabase
+import com.oskr19.easyshop.data.core.network.NetworkHandlerImpl
+import com.oskr19.easyshop.domain.core.network.INetworkHandler
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
