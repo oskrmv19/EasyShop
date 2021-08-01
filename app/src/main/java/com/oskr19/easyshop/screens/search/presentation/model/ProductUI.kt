@@ -9,6 +9,7 @@ import com.oskr19.easyshop.screens.common.dto.Picture
 class ProductUI {
     var id: String? = ""
     var title: String? = ""
+    var description: String? = null
     var price: String? = ""
     var condition: String? = ""
     var thumbnail: String? = ""

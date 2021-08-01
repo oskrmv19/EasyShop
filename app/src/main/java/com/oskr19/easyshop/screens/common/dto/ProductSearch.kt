@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 /**
  * Created by oscar.vergara on 23/07/2021
  */
-class ProductSearch: Product() {
+open class ProductSearch: Product() {
     @SerializedName("sale_price")
     val salePrice: Double? = null
 

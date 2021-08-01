@@ -28,8 +28,10 @@ open class BaseViewModel(
     protected val _failure: MutableLiveData<Failure> = MutableLiveData()
     val failure: LiveData<Failure?> = _failure
 
-    fun handleFailure(failure: Failure) {
-        _failure.postValue(failure)
+    fun handleFailure(failure: Throwable) {
+        if(failure is Failure) {
+            _failure.postValue(failure)
+        }
     }
 
     fun setLoading(isLoading: Boolean){

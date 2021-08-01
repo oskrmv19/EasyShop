@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Size Fonts -->
+    <dimen name="font_xs">10sp</dimen>
+    <dimen name="font_sm">12sp</dimen>
+    <dimen name="font_normal">14sp</dimen>
+    <dimen name="font_md">16sp</dimen>
+    <dimen name="font_lg">20sp</dimen>
+    <dimen name="font_xlg">24sp</dimen>
+    <dimen name="font_xxlg">28sp</dimen>
+    <dimen name="font_xxxlg">36sp</dimen>
+
+    <!-- Margin -->
+    <dimen name="mg_xxs">5dp</dimen>
+    <dimen name="mg_xs">10dp</dimen>
+    <dimen name="mg_sm">20dp</dimen>
+    <dimen name="mg_md">30dp</dimen>
+    <dimen name="mg_lg">40dp</dimen>
+    <dimen name="mg_xlg">50dp</dimen>
+
+    <!-- Padding -->
+    <dimen name="pd_xxs">10dp</dimen>
+    <dimen name="pd_xs">15dp</dimen>
+    <dimen name="pd_sm">20dp</dimen>
+    <dimen name="pd_md">30dp</dimen>
+    <dimen name="pd_lg">40dp</dimen>
+</resources>

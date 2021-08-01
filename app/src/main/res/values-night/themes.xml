@@ -16,6 +16,6 @@
     </style>
 
     <style name="Theme.CountersWelcome" parent="Theme.CountersNormal">
-        <item name="android:windowBackground">@color/welcome_background</item>
+        <item name="android:windowBackground">@color/white</item>
     </style>
 </resources>

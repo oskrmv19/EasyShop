@@ -17,6 +17,4 @@ data class Variation (
     val saleTerms: List<Any?>,
     @SerializedName("picture_ids")
     val pictureIDS: List<String>,
-    @SerializedName("catalog_product_id")
-    val catalogProductID: Long? = null
 )

@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 open class Product {
     @SerializedName("id")
-    var id: String? = null
+    val id: String = ""
     @SerializedName("site_id")
     var siteID: String? = null
     @SerializedName("title")

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="attr"
+            type="kotlin.Pair" />
+    </data>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorSecondary">
+
+        <TextView
+            android:id="@+id/textViewName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="?attr/colorPrimaryDark"
+            android:padding="10dp"
+            android:text="@{String.valueOf(attr.first)}"
+            android:textColor="?attr/titleTextColor" />
+
+        <TextView
+            android:id="@+id/textViewValue"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:text="@{String.valueOf(attr.second)}"
+            android:textColor="?attr/subtitleTextColor" />
+
+    </TableRow>
+</layout>

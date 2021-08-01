@@ -9,4 +9,13 @@
     <string name="address_template">%s, %s</string>
     <string name="free_shipping">Envío gratis</string>
     <string name="kilometer_year_template">%s - %s</string>
+    <string name="description">Descripcion</string>
+    <string name="indicator_template">%d / %d</string>
+    <string name="product_attributes">Características</string>
+    <string name="others_attributes">
+        <u>caracteristicas del productos</u>
+    </string>
+    <string name="load_more">
+        <u>Cargar más</u>
+    </string>
 </resources>

@@ -25,17 +25,9 @@ class ProductAdapter (
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
-        val view = DataBindingUtil.inflate<SearchProductItemBinding>(
-            inflater,
-            R.layout.search_product_item,
-            parent,
-            false
-        )
+        val view = SearchProductItemBinding.inflate( LayoutInflater.from(parent.context), parent,false)
         return ViewHolder(view)
     }
-
-    fun getItem(position: Int) = counters[position]
 
     override fun getItemCount() = counters.size
 
