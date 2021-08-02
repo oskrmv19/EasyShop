@@ -3,36 +3,43 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.oskr19.easyshop.core.presentation.viewmodel.BaseViewModel" />
+    </data>
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         tools:context=".screens.search.presentation.SearchResultFragment">
 
         <include
             android:id="@+id/searchToolbar"
             layout="@layout/search_toolbar" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/content"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/mg_xlg"
-            app:layout_constraintTop_toBottomOf="@id/searchToolbar"
-            app:layout_constraintVertical_bias="0.0"
-            tools:itemCount="6"
-            tools:listitem="@layout/search_product_item" />
+            android:layout_height="match_parent"
+            android:layout_marginTop="?attr/actionBarSize"
+            android:showHide="@{viewModel.state.finished}">
 
-        <TextView
-            android:id="@+id/loadMore"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/mg_xlg"
-            android:text="@string/load_more"
-            android:textColor="@color/even_orange"
-            app:layout_constraintVertical_bias="1.0"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/recyclerView" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="@dimen/mg_xlg"
+                app:layout_constraintVertical_bias="0.0"
+                tools:itemCount="6"
+                tools:listitem="@layout/search_product_item" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <include
+            android:id="@+id/states"
+            layout="@layout/layout_states"
+            android:visibility="visible" />
+
+    </FrameLayout>
 </layout>

@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.oskr19.easyshop.R
 import com.oskr19.easyshop.databinding.AttributesBottomSheetBinding
@@ -20,7 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class AttributesListDialogFragment : BottomSheetDialogFragment() {
     companion object {
-        const val TAG = "AttributesListDialogFragment"
+        val tag: String = AttributesListDialogFragment::class.java.simpleName
         var attributes: List<Attribute>? = null
     }
 
@@ -38,6 +40,8 @@ class AttributesListDialogFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         attributes?.let {
             createTableRows(it)
+            val behavior = (dialog as BottomSheetDialog).behavior
+            behavior.state = BottomSheetBehavior.STATE_EXPANDED
         }
     }
 

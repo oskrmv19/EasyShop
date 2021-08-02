@@ -2,9 +2,7 @@ package com.oskr19.easyshop.screens.search.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.oskr19.easyshop.R
 import com.oskr19.easyshop.databinding.SearchProductItemBinding
 import com.oskr19.easyshop.screens.search.presentation.ProductItemListener
 import com.oskr19.easyshop.screens.search.presentation.model.ProductUI

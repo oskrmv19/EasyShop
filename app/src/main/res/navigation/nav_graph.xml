@@ -17,6 +17,9 @@
             android:id="@+id/homeToSearch"
             app:destination="@id/searchFragment"
             app:enterAnim="@android:anim/fade_in" />
+        <action
+            android:id="@+id/homeToResults"
+            app:destination="@id/searchResultFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
@@ -45,12 +48,7 @@
         android:id="@+id/detailFragment"
         android:name="com.oskr19.easyshop.screens.detail.presentation.DetailFragment"
         android:label="fragment_detail"
-        tools:layout="@layout/fragment_detail" >
-        <action
-            android:id="@+id/detailToBottomSheet"
-            app:destination="@id/attributesListDialogFragment"
-            app:enterAnim="@anim/nav_default_pop_enter_anim" />
-    </fragment>
+        tools:layout="@layout/fragment_detail" />
     <fragment
         android:id="@+id/searchResultFragment"
         android:name="com.oskr19.easyshop.screens.search.presentation.SearchResultFragment"
@@ -58,7 +56,8 @@
         tools:layout="@layout/fragment_search_result" >
         <action
             android:id="@+id/resultsToDetail"
-            app:destination="@id/detailFragment" />
+            app:destination="@id/detailFragment"
+            app:launchSingleTop="false" />
         <argument
             android:name="query"
             app:argType="string" />
@@ -66,9 +65,4 @@
             android:id="@+id/resultToSearch"
             app:destination="@id/searchFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/attributesListDialogFragment"
-        android:name="com.oskr19.easyshop.screens.detail.presentation.AttributesListDialogFragment"
-        android:label="AttributesListDialogFragment"
-        tools:layout="@layout/attributes_bottom_sheet"/>
 </navigation>

@@ -6,9 +6,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.oskr19.easyshop.core.domain.failure.Failure
 import com.oskr19.easyshop.core.presentation.UiEvent
+import com.oskr19.easyshop.core.presentation.model.State
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import timber.log.Timber
 import kotlin.coroutines.CoroutineContext
 
 /**
@@ -22,20 +24,47 @@ open class BaseViewModel(
     override val coroutineContext: CoroutineContext
         get() = job + Dispatchers.Main
 
-    protected val _status = MutableLiveData<UiEvent>()
-    val status: LiveData<UiEvent?> = _status
+    protected val _state = State()
 
-    protected val _failure: MutableLiveData<Failure> = MutableLiveData()
-    val failure: LiveData<Failure?> = _failure
+    private val _status = MutableLiveData<State>()
+    val status: LiveData<State> = _status
 
     fun handleFailure(failure: Throwable) {
-        if(failure is Failure) {
-            _failure.postValue(failure)
+        when (failure) {
+            is Failure.NoConnection -> {
+                setEventDisconnected()
+            }
+            is Failure -> {
+                Timber.e(failure)
+                setEventError(failure)
+            }
+            else -> {
+                Timber.e(failure)
+                setEventError(Failure.GenericError())
+            }
         }
     }
 
-    fun setLoading(isLoading: Boolean){
-        _status.postValue( if (isLoading) UiEvent.LOADING else UiEvent.FINISHED)
+    fun getState() = _state
+
+    fun setEventLoading(){
+        _state.setEvent(UiEvent.LOADING)
+        _status.postValue(_state)
+    }
+
+    fun setEventFinished(){
+        _state.setEvent(UiEvent.FINISHED)
+        _status.postValue(_state)
+    }
+
+    fun setEventDisconnected(){
+        _state.setEvent(UiEvent.DISCONNECTED)
+        _status.postValue(_state)
+    }
+
+    fun setEventError(failure: Failure) {
+        _state.setEvent(UiEvent.ERROR(failure))
+        _status.postValue(_state)
     }
 
     override fun onCleared() {

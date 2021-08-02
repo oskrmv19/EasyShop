@@ -8,198 +8,226 @@
         <variable
             name="product"
             type="com.oskr19.easyshop.screens.search.presentation.model.ProductUI" />
+
+        <variable
+            name="viewModel"
+            type="com.oskr19.easyshop.core.presentation.viewmodel.BaseViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/content"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".screens.detail.presentation.DetailFragment">
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="match_parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/pd_xs">
+                android:layout_height="wrap_content">
 
-                <androidx.viewpager2.widget.ViewPager2
-                    android:id="@+id/viewPager"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_marginTop="@dimen/mg_xs"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHeight_percent="0.35"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintWidth_percent="0.9" />
-
-                <TextView
-                    android:id="@+id/indicator"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/shape_toolbar_search"
-                    android:backgroundTint="@color/gray"
-                    android:paddingHorizontal="@dimen/pd_xxs"
-                    app:layout_constraintBottom_toBottomOf="@id/viewPager"
-                    app:layout_constraintEnd_toEndOf="@id/viewPager"
-                    app:layout_constraintStart_toStartOf="@id/viewPager"
-                    app:layout_constraintTop_toBottomOf="@id/viewPager" />
-
-                <TextView
-                    android:id="@+id/textViewTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/mg_xs"
-                    android:text="@{product.title}"
-                    android:textColor="@color/gray"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/indicator" />
-
-                <TextView
-                    android:id="@+id/textViewInfo1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/mg_xs"
-                    android:text="@{product.info1}"
-                    android:textColor="@color/gray"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/textViewTitle" />
-
-                <TextView
-                    android:id="@+id/textViewInfo2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/mg_xs"
-                    android:text="@{product.info2}"
-                    android:textColor="@color/gray"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/textViewInfo1" />
-
-                <TextView
-                    android:id="@+id/textViewPrice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/mg_xs"
-                    android:text="@{product.price}"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/font_xlg"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/textViewInfo2" />
+                <include
+                    android:id="@+id/toolbarLayout"
+                    layout="@layout/toolbar" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/actionContainer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/mg_xs"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/textViewPrice">
+                    android:id="@+id/content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="?attr/actionBarSize"
+                    android:paddingHorizontal="@dimen/pd_xs"
+                    android:paddingBottom="@dimen/mg_lg"
+                    android:showHide="@{viewModel.state.finished}">
 
-                    <include
-                        android:id="@+id/line1"
-                        layout="@layout/horizontal_line"
-                        android:layout_width="match_parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintVertical_bias="0.1"
-                        android:layout_height="wrap_content" />
-
-                    <TextView
-                        android:id="@+id/textViewFavorite"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:drawablePadding="@dimen/pd_xxs"
-                        android:text="add to favorite"
-                        app:drawableStartCompat="@drawable/ic_favorite"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/textViewShare"
+                    <androidx.viewpager2.widget.ViewPager2
+                        android:id="@+id/viewPager"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginTop="@dimen/mg_xs"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHeight_percent="0.35"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/line1" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintWidth_percent="0.9" />
 
                     <TextView
-                        android:id="@+id/textViewShare"
+                        android:id="@+id/indicator"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/mg_sm"
-                        android:drawablePadding="@dimen/pd_xxs"
-                        android:text="Share"
-                        app:drawableStartCompat="@drawable/ic_search"
+                        android:background="@drawable/shape_toolbar_search"
+                        android:backgroundTint="@color/gray"
+                        android:paddingHorizontal="@dimen/pd_xxs"
+                        app:layout_constraintBottom_toBottomOf="@id/viewPager"
+                        app:layout_constraintEnd_toEndOf="@id/viewPager"
+                        app:layout_constraintStart_toStartOf="@id/viewPager"
+                        app:layout_constraintTop_toBottomOf="@id/viewPager" />
+
+                    <TextView
+                        android:id="@+id/textViewTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/mg_xs"
+                        android:text="@{product.title}"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                        android:textColor="@color/black"
+                        app:layout_constraintEnd_toEndOf="@id/viewPager"
+                        app:layout_constraintStart_toStartOf="@id/viewPager"
+                        app:layout_constraintTop_toBottomOf="@id/indicator" />
+
+                    <TextView
+                        android:id="@+id/textViewInfo1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/mg_xs"
+                        android:text="@{product.info1}"
+                        android:textColor="@color/gray"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/textViewTitle" />
+
+                    <TextView
+                        android:id="@+id/textViewInfo2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/mg_xs"
+                        android:text="@{product.info2}"
+                        android:textColor="@color/gray"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/textViewInfo1" />
+
+                    <TextView
+                        android:id="@+id/textViewPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/mg_xs"
+                        android:text="@{product.price}"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/font_xlg"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/textViewInfo2" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/actionContainer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/mg_xs"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/textViewFavorite"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/textViewPrice"
+                        app:layout_constraintVertical_bias="0.0">
 
-                    <include
-                        android:id="@+id/line2"
-                        layout="@layout/horizontal_line" />
+                        <View
+                            android:id="@+id/line1"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/gray"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/textViewFavorite"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="@dimen/pd_xxs"
+                            android:text="add to favorite"
+                            app:drawableStartCompat="@drawable/ic_favorite"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/textViewShare"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/line1" />
+
+                        <TextView
+                            android:id="@+id/textViewShare"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/mg_sm"
+                            android:drawablePadding="@dimen/pd_xxs"
+                            android:text="Share"
+                            app:drawableStartCompat="@drawable/ic_search"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/textViewFavorite"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <View
+                            android:id="@+id/line2"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/gray"
+                            app:layout_constraintBottom_toBottomOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <TextView
+                        android:id="@+id/textViewInformation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Información del producto"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/font_lg"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/actionContainer"
+                        app:layout_constraintVertical_bias="0.05" />
+
+                    <TableLayout
+                        android:id="@+id/tableAttributes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/mg_xs"
+                        android:background="@drawable/shape_bordered_corner_rounded"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/textViewInformation"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                    <TextView
+                        android:id="@+id/textViewOthersAttributes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/mg_xs"
+                        android:showHide="@{ product.attributes != null }"
+                        android:text="@string/others_attributes"
+                        android:textColor="@color/rename"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tableAttributes" />
+
+                    <TextView
+                        android:id="@+id/textViewDescriptionLbl"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/mg_md"
+                        android:showHide="@{ product.description != null }"
+                        android:text="@string/description"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/font_lg"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/textViewOthersAttributes" />
+
+                    <TextView
+                        android:id="@+id/textViewDescription"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/mg_xs"
+                        android:showHide="@{ product.description != null }"
+                        android:text="@{product.description}"
+                        android:textAlignment="viewStart"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/font_md"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@id/textViewDescriptionLbl"
+                        app:layout_constraintTop_toBottomOf="@id/textViewDescriptionLbl"
+                        app:layout_constraintVertical_bias="0.0" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <TextView
-                    android:id="@+id/textViewInformation"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Información del producto"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/font_lg"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/actionContainer" />
-
-                <TableLayout
-                    android:id="@+id/tableAttributes"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/mg_xs"
-                    android:background="@drawable/shape_bordered_corner_rounded"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/textViewInformation"
-                    app:layout_constraintVertical_bias="0.0" />
-
-                <TextView
-                    android:id="@+id/textViewOthersAttributes"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/mg_xs"
-                    android:showHide="@{ product.attributes != null }"
-                    android:text="@string/others_attributes"
-                    android:textColor="@color/rename"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tableAttributes" />
-
-                <TextView
-                    android:id="@+id/textViewDescriptionLbl"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/mg_md"
-                    android:showHide="@{ product.description != null }"
-                    android:text="@string/description"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/font_lg"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/textViewOthersAttributes" />
-
-                <TextView
-                    android:id="@+id/textViewDescription"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/mg_xs"
-                    android:showHide="@{ product.description != null }"
-                    android:text="@{product.description}"
-                    android:textAlignment="viewStart"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/font_md"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@id/textViewDescriptionLbl"
-                    app:layout_constraintTop_toBottomOf="@id/textViewDescriptionLbl" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
+            </FrameLayout>
         </ScrollView>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <include
+            android:id="@+id/states"
+            layout="@layout/layout_states"
+            android:visibility="gone" />
+
+    </FrameLayout>
 </layout>
