@@ -1,12 +1,12 @@
 package com.oskr19.easyshop.core.di
 
 import android.app.Application
-import android.content.Context
 import androidx.room.Room
 import com.oskr19.easyshop.core.data.database.LocalDatabase
 import com.oskr19.easyshop.core.data.network.NetworkHandlerImpl
 import com.oskr19.easyshop.core.data.preferences.EasyShopPrefs
 import com.oskr19.easyshop.core.domain.network.NetworkHandler
+import com.oskr19.easyshop.screens.common.mapper.ProductUIMapper
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -40,6 +40,12 @@ class AppModule {
     @Singleton
     fun provideEasyShopPrefs(application: Application): EasyShopPrefs {
         return EasyShopPrefs(application)
+    }
+
+    @Provides
+    @Singleton
+    fun provideMapper(application: Application): ProductUIMapper {
+        return ProductUIMapper(application)
     }
 
 }

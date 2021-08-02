@@ -5,7 +5,7 @@ package com.oskr19.easyshop.core.domain.failure
  */
 sealed class Failure: Throwable() {
 
-    class ServerError(message: String?) : Failure()
+    class ServerError(message: String? = null) : Failure()
 
     object NoConnection : Failure()
 

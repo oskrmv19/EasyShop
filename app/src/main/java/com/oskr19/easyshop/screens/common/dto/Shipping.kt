@@ -12,5 +12,11 @@ data class Shipping (
     @SerializedName("logistic_type")
     val logisticType: String,
     @SerializedName("store_pickup")
-    val storePickUp: Boolean
+    val storePickUp: Boolean,
+    @SerializedName("free_methods")
+    val freeMethods: List<FreeMethod>,
+    @SerializedName("dimensions")
+    val dimensions: Any? = null,
+    @SerializedName("local_pickUp")
+    val localPickUp: Boolean
 )

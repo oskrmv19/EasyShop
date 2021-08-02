@@ -5,4 +5,6 @@ package com.oskr19.easyshop.core.domain
  */
 object Constants {
     const val TIME_OUT = 10
+
+    const val ATTR_ITEM_CONDITION = "ITEM_CONDITION"
 }

@@ -4,8 +4,12 @@
     <color name="white">#FFFFFF</color>
     <color name="black">#212121</color>
     <color name="gray">#888B90</color>
-    <color name="green">#5BEC05</color>
+    <color name="rename">#3F51B5</color>
     <color name="light_gray">#DCDCDF</color>
     <color name="orange_opaque">#72FFEACC</color>
-    <color name="welcome_background">#FFFFFF</color>
+    <color name="light_gray_super">#EFEDED</color>
+    <color name="middle_gray">#B5B5B5</color>
+    <color name="odd_orange">#FBB045</color>
+    <color name="even_orange">#FFC97E</color>
+    <color name="light_orange">#FFE3BC</color>
 </resources>

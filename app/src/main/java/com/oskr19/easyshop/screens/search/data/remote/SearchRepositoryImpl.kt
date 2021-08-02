@@ -15,9 +15,9 @@ import kotlinx.coroutines.flow.flow
  */
 class SearchRepositoryImpl(
     networkHandler: NetworkHandler,
-    prefs: EasyShopPrefs,
+    private val prefs: EasyShopPrefs,
     private val api: SearchAPI
-    ) : BaseRepository(networkHandler, prefs), SearchRepository {
+    ) : BaseRepository(networkHandler), SearchRepository {
 
     override suspend fun searchProduct(query: String): Flow<SearchResponse> {
         return flow {

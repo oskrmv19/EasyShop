@@ -44,4 +44,23 @@
         <item name="colorOnPrimary">@color/orange</item>
         <item name="colorSecondary">@color/orange</item>
     </style>
+
+    <style name="TableLayoutThemeOrange" parent="Theme.Normal">
+        <item name="colorPrimaryDark">@color/odd_orange</item>
+        <item name="colorPrimary">@color/even_orange</item>
+        <item name="colorSecondary">@color/even_orange</item>
+        <item name="colorSecondaryVariant">@color/light_orange</item>
+        <item name="titleTextColor">@color/black</item>
+        <item name="subtitleTextColor">@color/gray</item>
+    </style>
+
+    <style name="TableLayoutThemeGray" parent="Theme.Normal">
+        <item name="colorPrimaryDark">@color/middle_gray</item>
+        <item name="colorPrimary">@color/light_gray</item>
+        <item name="colorSecondary">@color/light_gray</item>
+        <item name="colorSecondaryVariant">@color/light_gray_super</item>
+        <item name="titleTextColor">@color/black</item>
+        <item name="subtitleTextColor">@color/gray</item>
+    </style>
+
 </resources>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="groupName"
+            type="String" />
+    </data>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/pd_xs"
+        android:paddingTop="@dimen/pd_lg"
+        android:paddingBottom="@dimen/pd_sm">
+
+        <TextView
+            android:id="@+id/textViewName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/light_orange"
+            android:padding="10dp"
+            android:text="@{groupName}"
+            android:textAlignment="center"
+            android:textColor="@color/black" />
+
+    </TableRow>
+</layout>

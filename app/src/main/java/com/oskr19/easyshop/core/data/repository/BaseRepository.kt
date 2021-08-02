@@ -1,7 +1,5 @@
 package com.oskr19.easyshop.core.data.repository
 
-import android.util.Log
-import com.oskr19.easyshop.core.data.preferences.EasyShopPrefs
 import com.oskr19.easyshop.core.domain.failure.Failure
 import com.oskr19.easyshop.core.domain.network.NetworkHandler
 import retrofit2.HttpException
@@ -13,38 +11,44 @@ import java.net.UnknownHostException
 /**
  * Created by oscar.vergara on 24/07/2021
  */
-open class BaseRepository(val networkHandler: NetworkHandler, val prefs: EasyShopPrefs) {
+open class BaseRepository(val networkHandler: NetworkHandler) {
     lateinit var error: Failure
 
     fun resolveFailure(e: Exception): Failure {
-        e.printStackTrace()
-        Log.e("oscar","oscar",e)
-        when (e) {
+        Timber.e(e, "Repository Error")
+        error = when (e) {
             is SocketTimeoutException -> {
-                error = Failure.ServerError("connection error!")
+                Failure.ServerError("connection error!")
             }
             is ConnectException -> {
-                error = Failure.NoConnection
+                Failure.NoConnection
             }
             is UnknownHostException -> {
-                error = Failure.NoConnection
+                Failure.NoConnection
+            }
+            else -> {
+                validateByCode(e)
             }
         }
 
-        if(e is HttpException){
-            error = when(e.code()){
+        return error
+    }
+
+    private fun validateByCode(e: Exception): Failure {
+        return if(e is HttpException){
+            when(e.code()){
                 500 -> {
                     Failure.ServerError("internal error!")
                 }
                 404 -> {
-                    Failure.ServerError("Service not found!")
+                    Failure.ServerError("resource not found!")
                 }
                 else -> {
                     Failure.ServerError(e.message)
                 }
             }
+        } else {
+            Failure.ServerError()
         }
-
-        return error
     }
 }

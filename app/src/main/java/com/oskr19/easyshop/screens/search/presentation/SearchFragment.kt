@@ -2,12 +2,9 @@ package com.oskr19.easyshop.screens.search.presentation
 
 import android.os.Bundle
 import android.view.*
-import android.widget.TextView
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.res.ResourcesCompat
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
@@ -15,7 +12,6 @@ import com.oskr19.easyshop.MainActivity
 import com.oskr19.easyshop.R
 import com.oskr19.easyshop.databinding.FragmentSearchBinding
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 @AndroidEntryPoint
 class SearchFragment : Fragment(), SearchView.OnQueryTextListener {
@@ -27,7 +23,8 @@ class SearchFragment : Fragment(), SearchView.OnQueryTextListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_search,container, false)
+
+        binding = FragmentSearchBinding.inflate(layoutInflater, container, false)
 
         setupToolbar()
 

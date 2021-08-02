@@ -1,4 +1,4 @@
-package com.oskr19.easyshop.screens.search.presentation.mapper
+package com.oskr19.easyshop.screens.common.mapper
 
 import android.content.Context
 import com.oskr19.easyshop.R
