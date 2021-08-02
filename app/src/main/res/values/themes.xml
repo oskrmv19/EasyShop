@@ -37,7 +37,7 @@
         <item name="android:titleTextStyle">@style/TextAppearance.AppCompat.Light.SearchResult.Title</item>
     </style>
 
-    <style name="Toolbar" parent="Theme.Normal">
+    <style name="Toolbar" parent="ThemeOverlay.AppCompat.Light">
         <item name="titleTextColor">@color/black</item>
         <item name="actionMenuTextColor">?attr/colorPrimary</item>
         <item name="android:actionMenuTextColor">?attr/colorPrimary</item>
@@ -61,6 +61,16 @@
         <item name="colorSecondaryVariant">@color/light_gray_super</item>
         <item name="titleTextColor">@color/black</item>
         <item name="subtitleTextColor">@color/gray</item>
+    </style>
+
+    <style name="Text">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="Text.Bold" parent="Text">
+        <item name="android:textStyle">bold</item>
     </style>
 
 </resources>

@@ -26,10 +26,10 @@ class SearchViewModel @Inject constructor(
     application: Application,
     private val searchProductUseCase: SearchProductUseCase,
     private val mapper: ProductUIMapper
-): BaseViewModel(application) {
+) : BaseViewModel(application) {
 
-    private val _result = MutableLiveData<List<ProductUI>>()
-    val results: LiveData<List<ProductUI>> get() = _result
+    private val _result = MutableLiveData<List<ProductUI>?>()
+    val results: LiveData<List<ProductUI>?> get() = _result
 
     private val _search = MutableLiveData<String>()
     val search: LiveData<String> get() = _search
@@ -37,22 +37,23 @@ class SearchViewModel @Inject constructor(
     private lateinit var _searchResponse: SearchResponse
     private lateinit var _selected: ProductSearch
 
-    fun search(query: String){
+    fun search(query: String) {
         launch {
             _search.postValue(query)
             searchProductUseCase.run(SearchProductUseCase.Params(query))
-                .onStart { setLoading(true)  }
-                .onEmpty { _failure.postValue(Failure.ServerError(null)) }
+                .onStart { setEventLoading() }
+                .onEmpty { setEventError(Failure.ServerError()) }
                 .catch { handleFailure(it) }
                 .collect {
                     _searchResponse = it
                     _result.postValue(mapper.mapFromList(it.results))
+                    setEventFinished()
                 }
         }
     }
 
     fun getSelectedProduct() = _selected
-    fun setSelectedProduct(position: Int){
+    fun setSelectedProduct(position: Int) {
         _selected = _searchResponse.results[position]
     }
 }

@@ -2,20 +2,29 @@
     <string name="app_name">EasyShop</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="search_title">Search</string>
+    <string name="search_title">Buscar</string>
     <!-- Templates -->
     <string name="price_template">$ %s</string>
     <string name="installment_template">en %dx %s %s</string>
     <string name="address_template">%s, %s</string>
     <string name="free_shipping">Envío gratis</string>
     <string name="kilometer_year_template">%s - %s</string>
-    <string name="description">Descripcion</string>
+    <string name="description">Descripción</string>
     <string name="indicator_template">%d / %d</string>
     <string name="product_attributes">Características</string>
     <string name="others_attributes">
-        <u>caracteristicas del productos</u>
+        <u>características del productos</u>
     </string>
     <string name="load_more">
         <u>Cargar más</u>
+    </string>
+    <string name="details">Detalle</string>
+    <string name="generic_error_title">Error</string>
+    <string name="generic_error">Ha ocurrido un error. Puedes volver a intentarlo más tarde!.</string>
+    <string name="retry">Reintentar</string>
+    <string name="no_connection_title">Sin conexión!!</string>
+    <string name="no_connection">Parece que no estás conectado a internet.</string>
+    <string name="ok_underlined">
+        <u>Ok</u>
     </string>
 </resources>

@@ -1,21 +1,28 @@
 package com.oskr19.easyshop.screens.search.presentation
 
+import android.app.SearchManager
+import android.content.ComponentName
+import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.*
+import android.widget.EditText
 import androidx.appcompat.widget.SearchView
-import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavOptions
-import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.navigation.ui.NavigationUI
 import com.oskr19.easyshop.MainActivity
 import com.oskr19.easyshop.R
 import com.oskr19.easyshop.databinding.FragmentSearchBinding
 import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
-class SearchFragment : Fragment(), SearchView.OnQueryTextListener {
 
+@AndroidEntryPoint
+class SearchFragment : Fragment() {
+
+    private lateinit var _searchManager: SearchManager
     private lateinit var binding: FragmentSearchBinding
     private val args: SearchFragmentArgs by navArgs()
 
@@ -23,71 +30,68 @@ class SearchFragment : Fragment(), SearchView.OnQueryTextListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
+        _searchManager = requireContext().getSystemService(Context.SEARCH_SERVICE) as SearchManager
         binding = FragmentSearchBinding.inflate(layoutInflater, container, false)
-
-        setupToolbar()
-
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupToolbar()
     }
 
     private fun setupToolbar() {
         (requireActivity() as MainActivity).setSupportActionBar(binding.toolbarLayout.toolbar)
+        NavigationUI.setupActionBarWithNavController(requireActivity() as MainActivity,binding.root.findNavController())
         (requireActivity() as MainActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
-        (requireActivity() as MainActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        binding.toolbarLayout.toolbar.title = null
         setHasOptionsMenu(true)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.search_menu, menu);
+        inflater.inflate(R.menu.search_menu, menu)
+
         val item = menu.findItem(R.id.action_search)
         val sv = item.actionView as SearchView
+        val txtSearch = sv.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
+        txtSearch.setHintTextColor(Color.LTGRAY)
+        txtSearch.hint = getString(R.string.search_title)
 
-        sv.queryHint = getString(R.string.search_title)
+        sv.setSearchableInfo(_searchManager.getSearchableInfo(
+            ComponentName(requireContext(), MainActivity::class.java)
+        ))
 
-        item.icon = null
-        item.title = null
         item.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
             override fun onMenuItemActionExpand(item: MenuItem?): Boolean {
-                sv.setOnQueryTextListener(this@SearchFragment)
                 return true
             }
 
             override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
-                (requireActivity() as MainActivity).setSupportActionBar(null)
-                Navigation.findNavController(binding.toolbarLayout.toolbar).popBackStack()
+                if(this@SearchFragment.isAdded) {
+                    (requireActivity() as MainActivity).onBackPressed()
+                } else {
+                    item?.setOnActionExpandListener(null)
+                }
                 return true
             }
 
         })
 
-        binding.toolbarLayout.root.post {
-            binding.toolbarLayout.toolbar.menu.performIdentifierAction(
-                R.id.action_search,
-                Menu.FLAG_PERFORM_NO_CLOSE
-            )
-            binding.toolbarLayout.root.visibility = View.VISIBLE
-        }
+        //Auto-Open search
+        item.expandActionView()
+        sv.onActionViewExpanded()
 
-        args.query?.let {
-            sv.findViewById<SearchView.SearchAutoComplete>(androidx.appcompat.R.id.search_src_text).setTextColor(ResourcesCompat.getColor(resources,R.color.orange,null))
-            sv.findViewById<SearchView.SearchAutoComplete>(androidx.appcompat.R.id.search_src_text).setText(it,false)
+        //Update search text
+        txtSearch.post {
+            if(!TextUtils.isEmpty(args.query)) {
+                txtSearch.text.clear()
+                txtSearch.text = txtSearch.text.append(args.query)
+                txtSearch.setSelection(txtSearch.text.length)
+            }
         }
 
         super.onCreateOptionsMenu(menu, inflater)
 
     }
 
-    override fun onQueryTextSubmit(query: String?): Boolean {
-        query?.let {
-            val action = SearchFragmentDirections.searchToResult(it)
-            Navigation.findNavController(binding.root)
-                .navigate(action,NavOptions.Builder().setPopUpTo(R.id.homeFragment,false).build())
-        }
-        return true
-    }
-
-    override fun onQueryTextChange(newText: String?): Boolean {
-        return false
-    }
 }

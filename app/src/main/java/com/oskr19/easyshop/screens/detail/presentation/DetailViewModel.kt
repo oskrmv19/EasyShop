@@ -27,19 +27,19 @@ class DetailViewModel @Inject constructor(
     private val mapper: DetailProductUIMapper,
     private val getDetailProductUseCase: GetDetailProductUseCase,
     private val getDescriptionUseCase: GetDescriptionUseCase
-): BaseViewModel(application) {
+) : BaseViewModel(application) {
 
     private val _detail = MutableLiveData<ProductUI>()
     val detail: LiveData<ProductUI> get() = _detail
 
     private lateinit var product: ProductSearch
-    private lateinit var  detailResponse: DetailResponse
+    private lateinit var detailResponse: DetailResponse
 
-    fun getDetail(){
+    fun getDetail() {
         launch {
             getDetailProductUseCase.run(GetDetailProductUseCase.Params(product.id))
-                .onStart { setLoading(true) }
-                .onEmpty { _failure.postValue(Failure.ServerError()) }
+                .onStart { setEventLoading() }
+                .onEmpty { setEventError(Failure.ServerError()) }
                 .catch { handleFailure(it as Failure) }
                 .collect {
                     detailResponse = it
@@ -48,24 +48,26 @@ class DetailViewModel @Inject constructor(
         }
     }
 
-    private fun getDescription(){
+    private fun getDescription() {
         launch {
             getDescriptionUseCase.run(GetDescriptionUseCase.Params(product.id))
-                .onStart { setLoading(true) }
-                .onEmpty { _failure.postValue(Failure.ServerError()) }
+                .onStart { setEventLoading() }
+                .onEmpty { setEventError(Failure.ServerError()) }
                 .catch {
                     handleFailure(it as Failure)
                     _detail.postValue(mapper.mapTo(detailResponse))
+                    setEventFinished()
                 }
                 .collect { resp ->
-                        val productUI = mapper.mapTo(detailResponse)
-                        productUI.description = resp
-                        _detail.postValue(productUI)
+                    val productUI = mapper.mapTo(detailResponse)
+                    productUI.description = resp
+                    _detail.postValue(productUI)
+                    setEventFinished()
                 }
         }
     }
 
-    fun setProduct(productSearch: ProductSearch){
+    fun setProduct(productSearch: ProductSearch) {
         product = productSearch
     }
 }
