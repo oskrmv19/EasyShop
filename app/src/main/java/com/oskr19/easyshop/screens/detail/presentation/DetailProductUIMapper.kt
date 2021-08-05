@@ -24,6 +24,8 @@ class DetailProductUIMapper(private val context: Context) : Mapper<ProductUI, De
         productUI.thumbnail = type.thumbnail
         productUI.condition = findAttribute(type.attributes, ATTR_ITEM_CONDITION)
         productUI.attributes = type.attributes
+        productUI.favorite = type.favorite
+        productUI.sellerId = type.sellerID.toString()
 
         productUI.shipping =
             if (type.shipping?.freeShipping == true) context.getString(R.string.free_shipping) else ""

@@ -7,7 +7,7 @@ import com.oskr19.easyshop.screens.common.dto.Picture
  * Created by oscar.vergara on 27/07/2021
  */
 class ProductUI {
-    var id: String? = ""
+    var id: String = ""
     var title: String? = ""
     var description: String? = null
     var price: String? = ""
@@ -20,4 +20,6 @@ class ProductUI {
     var info1: String? = ""
     var info2: String? = ""
     var shipping: String? = ""
+    var favorite: Boolean = false
+    var sellerId: String? = ""
 }

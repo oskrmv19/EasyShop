@@ -26,14 +26,43 @@
             android:layout_marginTop="?attr/actionBarSize"
             android:showHide="@{viewModel.state.finished}">
 
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingBottom="@dimen/mg_xlg"
+                android:layout_height="0dp"
+                android:paddingBottom="@dimen/mg_xs"
+                app:layout_constraintBottom_toTopOf="@id/loadingMore"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0"
                 tools:itemCount="6"
                 tools:listitem="@layout/search_product_item" />
+
+            <TextView
+                android:id="@+id/textViewNoProducts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/no_result"
+                android:textColor="?android:attr/textColorSecondary"
+                android:visibility="visible"
+                app:drawableTopCompat="@drawable/ic_empty_list"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ProgressBar
+                android:id="@+id/loadingMore"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:indeterminate="true"
+                android:indeterminateTint="?attr/colorPrimary"
+                android:layout_marginBottom="@dimen/mg_xs"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintVertical_bias="0.4" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <include

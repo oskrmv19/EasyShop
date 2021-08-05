@@ -1,4 +1,4 @@
-package com.oskr19.easyshop
+package com.oskr19.easyshop.screens.search.data.local.provider
 
 import android.content.SearchRecentSuggestionsProvider
 
@@ -8,7 +8,7 @@ class CustomSuggestionProvider : SearchRecentSuggestionsProvider() {
     }
 
     companion object {
-        const val AUTHORITY = "com.oskr19.easyshop.CustomSuggestionProvider"
+        const val AUTHORITY = "com.oskr19.easyshop.screens.search.data.local.provider.CustomSuggestionProvider"
         const val MODE: Int = DATABASE_MODE_QUERIES
     }
 }

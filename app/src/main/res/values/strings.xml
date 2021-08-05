@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">EasyShop</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="search_title">Buscar</string>
     <!-- Templates -->
     <string name="price_template">$ %s</string>
@@ -13,12 +11,13 @@
     <string name="indicator_template">%d / %d</string>
     <string name="product_attributes">Características</string>
     <string name="others_attributes">
-        <u>características del productos</u>
+        <u>Ver más...</u>
     </string>
     <string name="load_more">
         <u>Cargar más</u>
     </string>
     <string name="details">Detalle</string>
+    <string name="categories">Categorías</string>
     <string name="generic_error_title">Error</string>
     <string name="generic_error">Ha ocurrido un error. Puedes volver a intentarlo más tarde!.</string>
     <string name="retry">Reintentar</string>
@@ -27,4 +26,23 @@
     <string name="ok_underlined">
         <u>Ok</u>
     </string>
+    <string name="remove_all">
+        <u>Limpiar </u>
+    </string>
+    <string name="favorites">Tus productos favoritos(%d)</string>
+    <string name="no_favorites">Aún no tienes productos favoritos</string>
+    <string name="lately">Últimos vistos</string>
+    <string name="information">Información del producto</string>
+    <string name="remove_favorite">
+        <u>Quitar de favoritos</u>
+    </string>
+    <string name="add_favorite">
+        <u>Agregar a favoritos</u>
+    </string>
+    <string name="search_by_seller">
+        <u>Más productos \n del vendedor</u>
+    </string>
+    <string name="no_result">No se encontraron productos</string>
+    <string name="home">Inicio</string>
+    <string name="categories_menu">Filtrar por categoria</string>
 </resources>

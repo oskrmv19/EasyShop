@@ -11,10 +11,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.NavigationUI
 import androidx.viewpager2.widget.ViewPager2
 import com.oskr19.easyshop.MainActivity
 import com.oskr19.easyshop.R
+import com.oskr19.easyshop.core.domain.Constants
+import com.oskr19.easyshop.core.domain.Constants.FEATURES_SIZE
 import com.oskr19.easyshop.core.presentation.dialog.DialogWindow
 import com.oskr19.easyshop.core.presentation.dialog.FullActions
 import com.oskr19.easyshop.core.presentation.extensions.setHeightPercent
@@ -24,8 +27,10 @@ import com.oskr19.easyshop.databinding.FragmentDetailBinding
 import com.oskr19.easyshop.databinding.TableRowEvenBinding
 import com.oskr19.easyshop.databinding.TableRowOddBinding
 import com.oskr19.easyshop.screens.detail.presentation.adapter.PictureAdapter
+import com.oskr19.easyshop.screens.favorite.presentation.FavoriteActionViewModel
 import com.oskr19.easyshop.screens.search.presentation.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -36,14 +41,16 @@ class DetailFragment : Fragment() {
     private lateinit var binding: FragmentDetailBinding
 
     private var _dialog: Dialog? = null
-    private val viewModel by viewModels<DetailViewModel>()
+    private val args by navArgs<DetailFragmentArgs>()
+    private val viewModel by activityViewModels<DetailViewModel>()
     private val searchViewModel by activityViewModels<SearchViewModel>()
+    private val favoriteActionViewModel by viewModels<FavoriteActionViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentDetailBinding.inflate(layoutInflater, container, false)
+        binding = FragmentDetailBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -57,7 +64,10 @@ class DetailFragment : Fragment() {
 
     private fun setupToolbar() {
         (requireActivity() as MainActivity).setSupportActionBar(binding.toolbarLayout.toolbar)
-        NavigationUI.setupActionBarWithNavController(requireActivity() as MainActivity,binding.root.findNavController())
+        NavigationUI.setupActionBarWithNavController(
+            requireActivity() as MainActivity,
+            binding.root.findNavController()
+        )
         binding.toolbarLayout.toolbar.title = getString(R.string.details)
         binding.toolbarLayout.toolbar.setNavigationOnClickListener {
             it.findNavController().popBackStack()
@@ -78,10 +88,8 @@ class DetailFragment : Fragment() {
         binding.viewPager.adapter = pictureAdapter
         binding.viewPager.setHeightPercent(0.35)
 
-        viewModel.setProduct(searchViewModel.getSelectedProduct())
-
         //Call getDetail
-        viewModel.getDetail()
+        viewModel.getDetail(args.productId)
     }
 
     private fun setListeners() {
@@ -105,6 +113,30 @@ class DetailFragment : Fragment() {
                     .commit()
             }
         }
+
+        binding.textViewSearchBySeller.setOnClickListener {
+            var sellerId = ""
+            sellerId = viewModel.detail.value?.sellerId!!
+            val action = DetailFragmentDirections.detailToSearch("", "", sellerId)
+            binding.root.findNavController().navigate(action)
+        }
+
+        binding.textViewAddFavorite.setOnClickListener { _ ->
+            viewModel.detail.value?.id?.let { it ->
+                favoriteActionViewModel.setFavorite(it, false)
+                viewModel.detail.value?.favorite = true
+                binding.product = viewModel.detail.value
+            }
+        }
+
+        binding.textViewRemoveFavorite.setOnClickListener { _ ->
+            viewModel.detail.value?.id?.let { it ->
+                favoriteActionViewModel.setFavorite(it, true).observe(viewLifecycleOwner, {
+                    viewModel.detail.value?.favorite = false
+                    binding.product = viewModel.detail.value
+                })
+            }
+        }
     }
 
     private fun observeViewModel() {
@@ -124,16 +156,17 @@ class DetailFragment : Fragment() {
         viewModel.status.observe(viewLifecycleOwner, { value ->
             value?.let {
                 _dialog?.dismiss()
-                if(it.isError()){
-                    _dialog = DialogWindow.dialogOnGenericError(requireContext(), object: FullActions {
-                        override fun onNegative() {
-                            //nothing is necessary
-                        }
+                if (it.isError()) {
+                    _dialog =
+                        DialogWindow.dialogOnGenericError(requireContext(), object : FullActions {
+                            override fun onNegative() {
+                                //nothing is necessary
+                            }
 
-                        override fun onPositive() {
-                            viewModel.getDetail()
-                        }
-                    })
+                            override fun onPositive() {
+                                viewModel.getDetail(args.productId)
+                            }
+                        })
 
                     _dialog?.show()
                 }
@@ -142,11 +175,19 @@ class DetailFragment : Fragment() {
     }
 
     private fun createTableRows() {
-        searchViewModel.getSelectedProduct().attributes?.let {
-            it.forEachIndexed { index, attribute ->
-                val inflater = LayoutInflater.from(ContextThemeWrapper(binding.root.context, R.style.TableLayoutThemeOrange))
+        searchViewModel.getSelectedProduct().attributes?.let { list ->
+            this.binding.tableAttributes.removeAllViews()
+            list.forEachIndexed { index, attribute ->
+                val inflater = LayoutInflater.from( ContextThemeWrapper( binding.root.context, R.style.TableLayoutThemeOrange ) )
 
-                if (index % 2 == 0) {
+                if (index >= FEATURES_SIZE) { //Just show 10 rows
+                    binding.textViewOthersAttributes.showHide(true)
+                    return@forEachIndexed
+                }
+
+                Timber.d("index::: $index ")
+
+                if (index % 2 == 0) { // Odd row
                     val binding = DataBindingUtil.inflate<TableRowOddBinding>(
                         inflater,
                         R.layout.table_row_odd,
@@ -155,7 +196,7 @@ class DetailFragment : Fragment() {
                     )
                     binding.attr = attribute.name to attribute.valueName
                     this.binding.tableAttributes.addView(binding.root)
-                } else {
+                } else { //Even row
                     val binding = DataBindingUtil.inflate<TableRowEvenBinding>(
                         inflater,
                         R.layout.table_row_even,

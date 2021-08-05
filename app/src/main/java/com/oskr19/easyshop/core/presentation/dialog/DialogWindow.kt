@@ -46,4 +46,11 @@ object DialogWindow {
             context.getString(R.string.generic_error), context.getString(android.R.string.ok), context.getString(android.R.string.cancel)
         )
     }
+
+    fun dialogOnError(context: Context): Dialog {
+        return makeDialog(context, null,
+            context.getString(R.string.generic_error_title),
+            context.getString(R.string.generic_error), context.getString(android.R.string.ok), null
+        )
+    }
 }

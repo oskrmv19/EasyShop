@@ -125,29 +125,62 @@
                             android:background="@color/gray"
                             app:layout_constraintTop_toTopOf="parent" />
 
-                        <TextView
-                            android:id="@+id/textViewFavorite"
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/favoriteContent"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:drawablePadding="@dimen/pd_xxs"
-                            android:text="add to favorite"
-                            app:drawableStartCompat="@drawable/ic_favorite"
+                            android:orientation="vertical"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@id/textViewShare"
+                            app:layout_constraintEnd_toStartOf="@id/textViewSearchBySeller"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/line1" />
+                            app:layout_constraintTop_toBottomOf="@id/line1" >
+
+                            <TextView
+                                android:id="@+id/textViewRemoveFavorite"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:drawablePadding="@dimen/pd_xxs"
+                                android:text="@string/remove_favorite"
+                                android:textColor="@color/orange"
+                                android:showHide="@{product.favorite}"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:drawableStartCompat="@drawable/ic_favorite"
+                                />
+
+                            <TextView
+                                android:id="@+id/textViewAddFavorite"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:drawablePadding="@dimen/pd_xxs"
+                                android:text="@string/add_favorite"
+                                android:textColor="@color/orange"
+                                android:showHide="@{product.favorite  == false}"
+                                app:drawableStartCompat="@drawable/ic_unfavorite"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
                         <TextView
-                            android:id="@+id/textViewShare"
+                            android:id="@+id/textViewSearchBySeller"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="@dimen/mg_sm"
                             android:drawablePadding="@dimen/pd_xxs"
-                            android:text="Share"
+                            android:text="@string/search_by_seller"
+                            android:singleLine="false"
+                            android:textColor="@color/orange"
+                            android:backgroundTint="@color/orange"
                             app:drawableStartCompat="@drawable/ic_search"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@id/textViewFavorite"
+                            app:layout_constraintStart_toEndOf="@id/favoriteContent"
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <View
@@ -163,13 +196,13 @@
                         android:id="@+id/textViewInformation"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Información del producto"
+                        android:text="@string/information"
                         android:textColor="@color/black"
                         android:textSize="@dimen/font_lg"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_marginTop="@dimen/mg_xs"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/actionContainer"
-                        app:layout_constraintVertical_bias="0.05" />
+                        app:layout_constraintVertical_bias="0.0" />
 
                     <TableLayout
                         android:id="@+id/tableAttributes"

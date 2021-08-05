@@ -1,4 +1,4 @@
-package com.oskr19.easyshop.core.presentation.model
+package com.oskr19.easyshop.core.presentation.state
 
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
@@ -9,7 +9,7 @@ import com.oskr19.easyshop.core.presentation.UiEvent
 /**
  * Created by oscar.vergara on 1/08/2021
  */
-class State: BaseObservable() {
+open class State: BaseObservable() {
 
     private var uiEvent: UiEvent? = null
 

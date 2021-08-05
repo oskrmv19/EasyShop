@@ -12,5 +12,5 @@ data class SellerAddress (
     @SerializedName("search_location")
     val searchLocation: SearchLocation,
     @SerializedName("id")
-    val id: Long
+    val id: String
 )

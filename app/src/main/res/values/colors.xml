@@ -12,4 +12,5 @@
     <color name="odd_orange">#FBB045</color>
     <color name="even_orange">#FFC97E</color>
     <color name="light_orange">#FFE3BC</color>
+    <color name="window_background">#F9F9F9</color>
 </resources>

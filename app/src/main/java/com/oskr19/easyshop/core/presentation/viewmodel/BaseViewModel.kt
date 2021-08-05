@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.oskr19.easyshop.core.domain.failure.Failure
 import com.oskr19.easyshop.core.presentation.UiEvent
-import com.oskr19.easyshop.core.presentation.model.State
+import com.oskr19.easyshop.core.presentation.state.State
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -24,9 +24,9 @@ open class BaseViewModel(
     override val coroutineContext: CoroutineContext
         get() = job + Dispatchers.Main
 
-    protected val _state = State()
+    protected var _state = State()
 
-    private val _status = MutableLiveData<State>()
+    protected val _status = MutableLiveData<State>()
     val status: LiveData<State> = _status
 
     fun handleFailure(failure: Throwable) {
@@ -46,6 +46,12 @@ open class BaseViewModel(
     }
 
     fun getState() = _state
+
+    fun setCustomEvent(event: State){
+        event.setEvent(UiEvent.FINISHED)
+        _state = event
+        _status.postValue(event)
+    }
 
     fun setEventLoading(){
         _state.setEvent(UiEvent.LOADING)
