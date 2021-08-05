@@ -36,12 +36,13 @@
         <argument
             android:name="query"
             app:argType="string"
-            app:nullable="true" />
+            app:nullable="true"
+            android:defaultValue=""/>
     </fragment>
     <fragment
         android:id="@+id/categoriesFragment"
         android:name="com.oskr19.easyshop.screens.categories.presentation.CategoriesFragment"
-        android:label=""
+        android:label="@string/categories"
         tools:layout="@layout/fragment_categories" >
         <action
             android:id="@+id/categoriesToCategories"
@@ -51,12 +52,14 @@
             app:destination="@id/searchResultFragment" />
         <argument
             android:name="categoryId"
-            app:argType="string" />
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue=""/>
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.oskr19.easyshop.screens.detail.presentation.DetailFragment"
-        android:label=""
+        android:label="@string/details"
         tools:layout="@layout/fragment_detail" >
         <action
             android:id="@+id/detailToSearch"

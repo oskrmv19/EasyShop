@@ -1,17 +1,20 @@
 package com.oskr19.easyshop.screens.common
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.appcompat.app.ActionBar
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.oskr19.easyshop.R
-import com.oskr19.easyshop.core.data.preferences.EasyShopPrefs
-import com.oskr19.easyshop.core.domain.Constants
 import com.oskr19.easyshop.core.presentation.base.BaseFragment
 import com.oskr19.easyshop.core.presentation.dialog.DialogWindow
 import com.oskr19.easyshop.core.presentation.extensions.showHide
@@ -38,9 +41,6 @@ class HomeFragment : BaseFragment() {
     private lateinit var binding: FragmentHomeBinding
 
     @Inject
-    internal lateinit var pref: EasyShopPrefs
-
-    @Inject
     internal lateinit var favoriteAdapter: FavoriteProductAdapter
 
     @Inject
@@ -61,13 +61,34 @@ class HomeFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //Set default Colombia siteID
-        pref.saveSiteID(Constants.DEFAULT_SITE_ID)
 
+        setUpToolbar()
         initViews()
         setListeners()
         observeViewModel()
 
+    }
+
+    private fun setUpToolbar() {
+        val inflater = requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val v = inflater.inflate(R.layout.search_custom_toolbar_layout, null)
+        val params = ActionBar.LayoutParams(
+            ActionBar.LayoutParams.MATCH_PARENT,
+            resources.getDimension(R.dimen.mtrl_toolbar_default_height).toInt() - 15
+        )
+
+        (requireActivity() as AppCompatActivity).supportActionBar?.let {
+            it.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
+            it.setCustomView(v, params)
+            it.setDisplayHomeAsUpEnabled(true)
+            it.customView?.setOnClickListener {
+                binding.root.findNavController().navigate(R.id.searchFragment)
+            }
+            it.setBackgroundDrawable(
+                ResourcesCompat.getDrawable( requireContext().resources, R.drawable.shape_toolbar_normal, null )
+            )
+            it.customView?.findViewById<TextView>(R.id.textViewSearch)?.text = getString(R.string.search_title)
+        }
     }
 
     private fun initViews() {
@@ -103,8 +124,7 @@ class HomeFragment : BaseFragment() {
         }
 
         binding.recyclerView.apply {
-            layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = favoriteAdapter
         }
 
@@ -132,10 +152,6 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun setListeners() {
-        binding.searchToolbar.toolbarContainer.setOnClickListener {
-            val action = HomeFragmentDirections.homeToSearch("")
-            Navigation.findNavController(it).navigate(action)
-        }
 
         binding.textViewRemoveAll.setOnClickListener {
             favoriteAdapter.data().map {
@@ -147,12 +163,12 @@ class HomeFragment : BaseFragment() {
         }
 
         binding.textViewNoFavorites.setOnClickListener {
-            val action = HomeFragmentDirections.homeToSearch("")
+            val action = HomeFragmentDirections.homeToSearch()
             Navigation.findNavController(it).navigate(action)
         }
 
         binding.textViewFavorite.setOnClickListener {
-            val action = HomeFragmentDirections.homeToCategories("")
+            val action = HomeFragmentDirections.homeToCategories()
             it.findNavController().navigate(action)
         }
     }

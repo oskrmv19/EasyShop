@@ -29,9 +29,7 @@ class LatelySeenRepositoryImpl(
 
             dao.getAll()?.let {
                 if (it.size > MAX_LATELY_SEEN_SIZE_ACCEPTED) {
-                    it.subList(MAX_LATELY_SEEN_SIZE_ACCEPTED - 1, it.size - 1).forEach { product ->
-                        dao.deleteById(product.productId)
-                    }
+                    dao.deleteById(it.first().productId)
                 }
             }
 

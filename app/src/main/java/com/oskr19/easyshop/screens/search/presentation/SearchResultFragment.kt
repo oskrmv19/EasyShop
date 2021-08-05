@@ -5,15 +5,15 @@ import android.os.SystemClock
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.oskr19.easyshop.MainActivity
 import com.oskr19.easyshop.R
 import com.oskr19.easyshop.core.presentation.base.BaseFragment
 import com.oskr19.easyshop.core.presentation.dialog.DialogAction
@@ -21,13 +21,10 @@ import com.oskr19.easyshop.core.presentation.dialog.DialogWindow
 import com.oskr19.easyshop.core.presentation.extensions.showHide
 import com.oskr19.easyshop.databinding.FragmentSearchResultBinding
 import com.oskr19.easyshop.screens.common.mapper.ProductUIMapper
-import com.oskr19.easyshop.screens.detail.presentation.DetailViewModel
 import com.oskr19.easyshop.screens.favorite.presentation.FavoriteActionViewModel
 import com.oskr19.easyshop.screens.search.presentation.adapter.SearchProductAdapter
-import com.oskr19.easyshop.screens.search.presentation.model.ProductUI
 import com.oskr19.easyshop.screens.search.presentation.model.SearchParams
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 import javax.inject.Inject
 
 
@@ -58,20 +55,37 @@ class SearchResultFragment : BaseFragment(), ProductItemListener {
         super.onViewCreated(view, savedInstanceState)
         setupToolbar()
         initViews()
-        setListeners()
         observeViewModel()
     }
 
     private fun setupToolbar() {
-        (requireActivity() as MainActivity).setSupportActionBar(binding.searchToolbar.toolbar)
-        NavigationUI.setupActionBarWithNavController(requireActivity() as MainActivity,binding.root.findNavController())
-        (requireActivity() as MainActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
-        (requireActivity() as MainActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
-        binding.searchToolbar.arrowBack.showHide(true)
-        binding.searchToolbar.arrowBack.setOnClickListener {
-            val action = SearchResultFragmentDirections.resultToSearch(args.query)
-            it.findNavController().navigate(action, NavOptions.Builder().setPopUpTo(R.id.searchFragment, false).build())
+        (requireActivity() as AppCompatActivity).supportActionBar?.setBackgroundDrawable(
+            ResourcesCompat.getDrawable(
+                requireContext().resources,
+                R.drawable.shape_toolbar_normal, null
+            )
+        )
+        (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayShowHomeEnabled(true)
+        (requireActivity() as AppCompatActivity).supportActionBar?.customView?.showHide(true)
+        (requireActivity() as AppCompatActivity).supportActionBar?.customView?.setOnClickListener {
+            binding.root.findNavController().navigate(R.id.searchFragment)
         }
+        (requireActivity() as AppCompatActivity).supportActionBar?.customView?.
+        findViewById<TextView>(R.id.textViewSearch)?.text =
+            when {
+                args.query.isNotEmpty() -> {
+                    args.query
+                }
+                args.categoryId.isNotEmpty() -> {
+                    getString(R.string.search_by_category_title)
+                }
+                args.sellerId.isNotEmpty() -> {
+                    getString(R.string.search_by_seller_title)
+                }
+                else -> {
+                    getString(R.string.search_title)
+                }
+            }
     }
 
     private fun initViews() {
@@ -88,15 +102,8 @@ class SearchResultFragment : BaseFragment(), ProductItemListener {
             layoutManager = LinearLayoutManager(this@SearchResultFragment.requireContext())
         }
 
-        binding.searchToolbar.textViewSearch.text = args.query
         binding.recyclerView.addOnScrollListener(setupScrollListener())
 
-    }
-
-    private fun setListeners() {
-        binding.searchToolbar.toolbarContainer.setOnClickListener {
-            Navigation.findNavController(binding.root).popBackStack(R.id.searchFragment, false)
-        }
     }
 
     private fun observeViewModel() {

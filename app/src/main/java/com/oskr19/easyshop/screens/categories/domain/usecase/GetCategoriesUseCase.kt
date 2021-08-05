@@ -3,7 +3,6 @@ package com.oskr19.easyshop.screens.categories.domain.usecase
 import com.oskr19.easyshop.core.domain.usecase.BaseUseCase
 import com.oskr19.easyshop.screens.categories.domain.CategoryRepository
 import com.oskr19.easyshop.screens.common.dto.Category
-import com.oskr19.easyshop.screens.detail.domain.DetailRepository
 import kotlinx.coroutines.flow.Flow
 
 /**

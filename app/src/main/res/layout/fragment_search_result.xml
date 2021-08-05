@@ -15,17 +15,11 @@
         android:layout_height="match_parent"
         tools:context=".screens.search.presentation.SearchResultFragment">
 
-        <include
-            android:id="@+id/searchToolbar"
-            layout="@layout/search_toolbar" />
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="?attr/actionBarSize"
             android:showHide="@{viewModel.state.finished}">
-
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"

@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">EasyShop</string>
     <string name="search_title">Buscar</string>
+    <string name="search_by_category_title">Búsqueda por Categoría</string>
+    <string name="search_by_seller_title">Búsqueda por Vendedor</string>
     <!-- Templates -->
     <string name="price_template">$ %s</string>
     <string name="installment_template">en %dx %s %s</string>
