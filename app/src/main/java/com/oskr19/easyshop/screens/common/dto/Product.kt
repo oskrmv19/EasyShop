@@ -55,4 +55,7 @@ open class Product {
     var warranty: String? = null
     @SerializedName("health")
     var health: Double? = null
+    @SerializedName("seller_address")
+    var sellerAddress: SellerAddress? = null
+    var favorite: Boolean = false
 }

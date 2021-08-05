@@ -5,15 +5,18 @@ import com.oskr19.easyshop.core.domain.failure.Failure
 import com.oskr19.easyshop.core.domain.network.NetworkHandler
 import com.oskr19.easyshop.screens.common.dto.DetailResponse
 import com.oskr19.easyshop.screens.detail.domain.DetailRepository
+import com.oskr19.easyshop.screens.favorite.data.local.FavoriteDao
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.onEach
 
 /**
  * Created by oscar.vergara on 28/07/2021
  */
 class DetailRepositoryImpl(
     networkHandler: NetworkHandler,
-    private val api: DetailAPI
+    private val api: DetailAPI,
+    private val dao: FavoriteDao
 ) : BaseRepository(networkHandler), DetailRepository {
 
     override suspend fun getDetail(id: String): Flow<DetailResponse> {
@@ -23,6 +26,7 @@ class DetailRepositoryImpl(
                 with(response){
                     if (isSuccessful){
                         body()?.let { body->
+                            body.favorite = dao.getById(id) != null
                             emit(body)
                         }
                     } else {
@@ -32,6 +36,9 @@ class DetailRepositoryImpl(
             } catch (e: Exception){
                 throw resolveFailure(e)
             }
+        }.onEach {
+            val entity = dao.getById(it.id)
+            it.favorite = entity != null
         }
     }
 

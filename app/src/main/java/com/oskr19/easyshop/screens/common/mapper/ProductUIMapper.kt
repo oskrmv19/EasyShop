@@ -20,11 +20,14 @@ class ProductUIMapper(private val context: Context) : ListMapper<ProductSearch, 
         productUI.warranty = type.warranty
         productUI.pictures = type.pictures
         productUI.thumbnail = type.thumbnail
-        productUI.condition = findAttribute(type.attributes,"ITEM_CONDITION")
+        productUI.condition = findAttribute(type.attributes, "ITEM_CONDITION")
         productUI.attributes = type.attributes
 
-        productUI.shipping = if (type.shipping?.freeShipping == true) context.getString(R.string.free_shipping) else ""
+        productUI.shipping =
+            if (type.shipping?.freeShipping == true) context.getString(R.string.free_shipping) else ""
         productUI.price = type.price?.let { NumberFormats.toMoney(it) }
+        productUI.favorite = type.favorite
+        productUI.sellerId = type.sellerID.toString()
 
         setInfo(productUI, type)
 
@@ -34,32 +37,29 @@ class ProductUIMapper(private val context: Context) : ListMapper<ProductSearch, 
     private fun setInfo(productUI: ProductUI, type: ProductSearch) {
         type.installments?.let {
 
-            productUI.info1 =String.format(
+            productUI.info1 = String.format(
                 context.getString(R.string.installment_template),
                 it.quantity, NumberFormats.toMoney(it.amount), it.currencyID
             )
-
-            productUI.info2 = String.format(
-                context.getString(R.string.address_template),
-                type.address?.stateName, type.address?.cityName
-            )
-
         }
 
-        if (type.installments == null) {
+        productUI.info2 = String.format(
+            context.getString(R.string.address_template),
+            type.sellerAddress?.state?.name?:"", type.sellerAddress?.city?.name?:""
+        )
+
+        if (type.installments == null && findAttribute(type.attributes, "VEHICLE_YEAR").isNotEmpty()) {
             productUI.info1 = String.format(
                 context.getString(R.string.kilometer_year_template),
                 findAttribute(type.attributes, "VEHICLE_YEAR"),
                 findAttribute(type.attributes, "KILOMETERS"),
             )
-
-            productUI.info2 = type.address?.stateName
         }
     }
 
     private fun findAttribute(list: List<Attribute>?, name: String): String {
         val attr = list?.let { it.find { at -> name == at.id } }
-        return attr?.valueName ?: ""
+        return attr?.valueName?:""
     }
 
     override fun mapTo(type: ProductUI): ProductSearch {

@@ -2,9 +2,16 @@ package com.oskr19.easyshop.core.presentation.extensions
 
 import android.content.Context
 import android.content.res.Resources
+import android.graphics.Color
 import android.view.View
+import android.view.ViewGroup
+import android.widget.GridView
 import android.widget.ImageView
+import android.widget.ListAdapter
+import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.BindingAdapter
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
@@ -21,15 +28,33 @@ fun showHideView(view: View, show: Boolean) {
 
 @BindingAdapter("android:imageUrl")
 fun loadImage(view: ImageView, url: String?) {
+    view.background = null
     view.loadImage(url, getProgressDrawable(view.context))
+}
+
+@BindingAdapter("android:favorite")
+fun loadFavorite(view: TextView, favorite: Boolean) {
+    view.loadFavoriteDrawable(favorite)
 }
 
 fun getProgressDrawable(context: Context): CircularProgressDrawable {
     return CircularProgressDrawable(context).apply {
         strokeWidth = 10f
         centerRadius = 50f
+        setColorSchemeColors(Color.parseColor("#FBB045"))
         start()
     }
+}
+
+fun TextView.loadFavoriteDrawable(favorite: Boolean) {
+    this.background =
+        ResourcesCompat.getDrawable(
+            this.context.resources,
+            if (favorite) R.drawable.ic_favorite else R.drawable.ic_unfavorite,
+            null
+        )
+    val colorStateList = ContextCompat.getColorStateList(this.context, R.color.orange)
+    this.backgroundTintList = colorStateList
 }
 
 fun ImageView.loadImage(uri: String?, progressDrawable: CircularProgressDrawable) {
@@ -50,4 +75,29 @@ fun View.setHeightPercent(percent: Double) {
     params.height = (Resources.getSystem().displayMetrics.heightPixels * percent).toInt()
     this.layoutParams = params
     this.requestLayout()
+}
+
+fun GridView.expand(){
+    val listAdapter: ListAdapter = this.adapter ?: return
+
+    var totalHeight: Int
+    val items: Int = listAdapter.count
+    val rows: Int
+
+    if(items>0) {
+        val listItem: View = listAdapter.getView(0, null, this)
+        listItem.measure(0, 0)
+        totalHeight = listItem.measuredHeight
+
+        val x: Float
+        if (items > numColumns) {
+            x = (items / numColumns).toFloat()
+            rows = (x + 1).toInt()
+            totalHeight *= rows
+        }
+
+        val params: ViewGroup.LayoutParams = this.layoutParams
+        params.height = totalHeight
+        this.layoutParams = params
+    }
 }

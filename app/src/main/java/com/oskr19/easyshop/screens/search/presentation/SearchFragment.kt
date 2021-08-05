@@ -45,6 +45,9 @@ class SearchFragment : Fragment() {
         NavigationUI.setupActionBarWithNavController(requireActivity() as MainActivity,binding.root.findNavController())
         (requireActivity() as MainActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
         binding.toolbarLayout.toolbar.title = null
+        binding.toolbarLayout.toolbar.setNavigationOnClickListener {
+            it.findNavController().popBackStack()
+        }
         setHasOptionsMenu(true)
     }
 

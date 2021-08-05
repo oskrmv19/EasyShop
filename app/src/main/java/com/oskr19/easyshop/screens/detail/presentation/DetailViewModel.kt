@@ -9,6 +9,7 @@ import com.oskr19.easyshop.screens.common.dto.DetailResponse
 import com.oskr19.easyshop.screens.common.dto.ProductSearch
 import com.oskr19.easyshop.screens.detail.domain.usecase.GetDescriptionUseCase
 import com.oskr19.easyshop.screens.detail.domain.usecase.GetDetailProductUseCase
+import com.oskr19.easyshop.screens.lately_seen.domain.usecase.SaveLatelySeenUseCase
 import com.oskr19.easyshop.screens.search.presentation.model.ProductUI
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
@@ -26,18 +27,18 @@ class DetailViewModel @Inject constructor(
     application: Application,
     private val mapper: DetailProductUIMapper,
     private val getDetailProductUseCase: GetDetailProductUseCase,
-    private val getDescriptionUseCase: GetDescriptionUseCase
+    private val getDescriptionUseCase: GetDescriptionUseCase,
+    private val saveLatelySeenUseCase: SaveLatelySeenUseCase
 ) : BaseViewModel(application) {
 
     private val _detail = MutableLiveData<ProductUI>()
     val detail: LiveData<ProductUI> get() = _detail
 
-    private lateinit var product: ProductSearch
     private lateinit var detailResponse: DetailResponse
 
-    fun getDetail() {
+    fun getDetail(productId: String) {
         launch {
-            getDetailProductUseCase.run(GetDetailProductUseCase.Params(product.id))
+            getDetailProductUseCase.run(GetDetailProductUseCase.Params(productId))
                 .onStart { setEventLoading() }
                 .onEmpty { setEventError(Failure.ServerError()) }
                 .catch { handleFailure(it as Failure) }
@@ -50,24 +51,28 @@ class DetailViewModel @Inject constructor(
 
     private fun getDescription() {
         launch {
-            getDescriptionUseCase.run(GetDescriptionUseCase.Params(product.id))
+            getDescriptionUseCase.run(GetDescriptionUseCase.Params(detailResponse.id))
                 .onStart { setEventLoading() }
-                .onEmpty { setEventError(Failure.ServerError()) }
+                .onEmpty { saveLatelySeen(detailResponse.id) }
                 .catch {
-                    handleFailure(it as Failure)
                     _detail.postValue(mapper.mapTo(detailResponse))
-                    setEventFinished()
+                    saveLatelySeen(detailResponse.id)
                 }
                 .collect { resp ->
                     val productUI = mapper.mapTo(detailResponse)
                     productUI.description = resp
                     _detail.postValue(productUI)
-                    setEventFinished()
+                    saveLatelySeen(detailResponse.id)
                 }
         }
     }
 
-    fun setProduct(productSearch: ProductSearch) {
-        product = productSearch
+    private suspend fun saveLatelySeen(productId: String) {
+        saveLatelySeenUseCase.run(SaveLatelySeenUseCase.Params(productId))
+            .onStart { setEventLoading() }
+            .catch { setEventFinished() }
+            .collect {
+                setEventFinished()
+            }
     }
 }

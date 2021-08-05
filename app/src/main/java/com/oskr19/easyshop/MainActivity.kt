@@ -6,9 +6,13 @@ import android.os.Bundle
 import android.provider.SearchRecentSuggestions
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
+import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
+import com.oskr19.easyshop.screens.common.HomeFragmentDirections
+import com.oskr19.easyshop.screens.search.data.local.provider.CustomSuggestionProvider
 import com.oskr19.easyshop.screens.search.presentation.SearchFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 /**
  * Created by oscar.vergara on 23/07/2021
@@ -43,7 +47,7 @@ class MainActivity : AppCompatActivity() {
                         .saveRecentQuery(query, null)
                 }
 
-                val action = SearchFragmentDirections.searchToResult(query)
+                val action = SearchFragmentDirections.searchToResult(query,"","")
                 navController.navigate(action)
             }
         }

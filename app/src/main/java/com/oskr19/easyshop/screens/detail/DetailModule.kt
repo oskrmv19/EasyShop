@@ -9,6 +9,7 @@ import com.oskr19.easyshop.screens.detail.domain.usecase.GetDescriptionUseCase
 import com.oskr19.easyshop.screens.detail.domain.usecase.GetDetailProductUseCase
 import com.oskr19.easyshop.screens.detail.presentation.DetailProductUIMapper
 import com.oskr19.easyshop.screens.detail.presentation.adapter.PictureAdapter
+import com.oskr19.easyshop.screens.favorite.data.local.FavoriteDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -35,9 +36,10 @@ class DataModule {
 
     @Provides
     @ActivityRetainedScoped
-    fun provideRepository(networkHandler: NetworkHandler, detailAPI: DetailAPI): DetailRepository {
-        return DetailRepositoryImpl(networkHandler, detailAPI)
+    fun provideRepository(networkHandler: NetworkHandler, detailAPI: DetailAPI, dao: FavoriteDao): DetailRepository {
+        return DetailRepositoryImpl(networkHandler, detailAPI, dao)
     }
+
 }
 
 @Module

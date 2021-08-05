@@ -7,5 +7,5 @@ import kotlinx.coroutines.flow.Flow
  * Created by oscar.vergara on 25/07/2021
  */
 interface SearchRepository {
-    suspend fun searchProduct(query: String): Flow<SearchResponse>
+    suspend fun searchProduct(offset: Int, query: String?, category: String?, sellerId: String?): Flow<SearchResponse>
 }

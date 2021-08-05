@@ -23,8 +23,6 @@ open class DetailResponse: ProductSearch() {
     var nonMercadoPagoPaymentMethods: List<Any?>? = null
     @SerializedName("international_delivery_mode")
     var internationalDeliveryMode: String? = null
-    @SerializedName("seller_address")
-    var sellerAddress: SellerAddress? = null
     @SerializedName("coverage_areas")
     var coverageAreas: List<Any?>? = null
     @SerializedName("listing_source")

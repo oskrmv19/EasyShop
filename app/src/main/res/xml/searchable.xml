@@ -4,6 +4,6 @@
     android:hint="@string/search_title"
     android:searchMode="queryRewriteFromText"
     android:searchSuggestIntentAction="android.intent.action.VIEW"
-    android:searchSuggestAuthority="com.oskr19.easyshop.CustomSuggestionProvider"
+    android:searchSuggestAuthority="com.oskr19.easyshop.screens.search.data.local.provider.CustomSuggestionProvider"
     android:searchSuggestSelection=" ?" >
 </searchable>

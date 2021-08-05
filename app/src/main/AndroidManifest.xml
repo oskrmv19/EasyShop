@@ -14,6 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Normal"
         android:usesCleartextTraffic="true">
+
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
@@ -32,8 +33,8 @@
         </activity>
 
         <provider
-            android:name=".CustomSuggestionProvider"
-            android:authorities="com.oskr19.easyshop.CustomSuggestionProvider" />
+            android:name=".screens.search.data.local.provider.CustomSuggestionProvider"
+            android:authorities="com.oskr19.easyshop.screens.search.data.local.provider.CustomSuggestionProvider" />
     </application>
 
 </manifest>

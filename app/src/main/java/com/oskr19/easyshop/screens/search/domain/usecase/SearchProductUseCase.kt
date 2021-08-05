@@ -11,9 +11,14 @@ import kotlinx.coroutines.flow.Flow
 class SearchProductUseCase(private val repository: SearchRepository) :
     BaseUseCase<SearchResponse, SearchProductUseCase.Params>() {
 
-    data class Params(val query: String)
+    data class Params(
+        var offset: Int = 0,
+        var query: String?,
+        var category: String?,
+        var sellerId: String?,
+    )
 
     override suspend fun run(params: Params): Flow<SearchResponse> {
-        return repository.searchProduct(params.query)
+        return repository.searchProduct(params.offset, params.query, params.category,params.sellerId)
     }
 }

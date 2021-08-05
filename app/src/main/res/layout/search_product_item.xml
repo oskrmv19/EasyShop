@@ -23,29 +23,22 @@
         android:layout_marginHorizontal="@dimen/mg_xs"
         android:layout_marginVertical="@dimen/mg_xxs"
         android:elevation="5dp"
-        app:cardCornerRadius="@dimen/mg_xxs">
+        app:cardCornerRadius="@dimen/mg_xxs"
+        app:cardElevation="5dp"
+        app:cardUseCompatPadding="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/pd_xs"
-            android:onClick="@{()->listener.onItemClick(position)}">
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.30" />
+            android:onClick="@{()->listener.onItemClick(position)}"
+            android:padding="@dimen/pd_xxs">
 
             <ImageView
                 android:id="@+id/imageView"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_width="120dp"
+                android:layout_height="100dp"
                 android:imageUrl="@{product.thumbnail}"
-                android:scaleType="centerInside"
                 app:layout_constraintBottom_toBottomOf="@id/informationContainer"
-                app:layout_constraintEnd_toStartOf="@id/guideline"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/informationContainer" />
 
@@ -53,17 +46,18 @@
                 android:id="@+id/informationContainer"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/mg_xs"
+                android:layout_marginStart="@dimen/mg_xs"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/guideline"
+                app:layout_constraintStart_toEndOf="@id/imageView"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <ImageView
+                <TextView
                     android:id="@+id/favorite"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/ic_favorite"
-                    android:onClick="@{()->listener.setFavorite(position,true)}"
+                    android:favorite="@{product.favorite}"
+                    android:onClick="@{()->listener.setFavorite(position,product.favorite)}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
