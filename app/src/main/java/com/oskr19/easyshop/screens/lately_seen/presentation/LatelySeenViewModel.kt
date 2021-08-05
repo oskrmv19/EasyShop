@@ -6,8 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import com.oskr19.easyshop.core.presentation.viewmodel.BaseViewModel
 import com.oskr19.easyshop.screens.common.dto.ProductSearch
 import com.oskr19.easyshop.screens.common.mapper.ProductUIMapper
-import com.oskr19.easyshop.screens.lately_seen.domain.usecase.GetLatelySeenUseCase
 import com.oskr19.easyshop.screens.favorite.presentation.state.NoLatelySeenState
+import com.oskr19.easyshop.screens.lately_seen.domain.usecase.GetLatelySeenUseCase
 import com.oskr19.easyshop.screens.lately_seen.domain.usecase.SaveLatelySeenUseCase
 import com.oskr19.easyshop.screens.search.presentation.model.ProductUI
 import dagger.hilt.android.lifecycle.HiltViewModel

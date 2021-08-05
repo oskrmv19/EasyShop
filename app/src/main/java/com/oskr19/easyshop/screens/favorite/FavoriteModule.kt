@@ -10,7 +10,6 @@ import com.oskr19.easyshop.screens.favorite.domain.usecase.GetFavoritesUseCase
 import com.oskr19.easyshop.screens.favorite.domain.usecase.RemoveAllFavoritesUseCase
 import com.oskr19.easyshop.screens.favorite.domain.usecase.SetFavoriteUseCase
 import com.oskr19.easyshop.screens.favorite.presentation.adapter.FavoriteProductAdapter
-import com.oskr19.easyshop.screens.lately_seen.data.remote.LatelySeenAPI
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

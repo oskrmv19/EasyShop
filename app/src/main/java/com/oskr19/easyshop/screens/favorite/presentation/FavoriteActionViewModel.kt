@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import com.oskr19.easyshop.core.domain.failure.Failure
 import com.oskr19.easyshop.core.presentation.viewmodel.BaseViewModel
 import com.oskr19.easyshop.screens.favorite.domain.usecase.SetFavoriteUseCase
-import com.oskr19.easyshop.screens.lately_seen.domain.usecase.SaveLatelySeenUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect

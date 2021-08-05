@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import com.oskr19.easyshop.core.domain.failure.Failure
 import com.oskr19.easyshop.core.presentation.viewmodel.BaseViewModel
 import com.oskr19.easyshop.screens.common.dto.DetailResponse
-import com.oskr19.easyshop.screens.common.dto.ProductSearch
 import com.oskr19.easyshop.screens.detail.domain.usecase.GetDescriptionUseCase
 import com.oskr19.easyshop.screens.detail.domain.usecase.GetDetailProductUseCase
 import com.oskr19.easyshop.screens.lately_seen.domain.usecase.SaveLatelySeenUseCase

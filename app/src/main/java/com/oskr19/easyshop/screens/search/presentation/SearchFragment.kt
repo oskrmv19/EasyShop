@@ -8,11 +8,11 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.view.*
 import android.widget.EditText
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.navigation.ui.NavigationUI
 import com.oskr19.easyshop.MainActivity
 import com.oskr19.easyshop.R
 import com.oskr19.easyshop.databinding.FragmentSearchBinding
@@ -38,17 +38,16 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupToolbar()
+        setHasOptionsMenu(true)
     }
 
     private fun setupToolbar() {
-        (requireActivity() as MainActivity).setSupportActionBar(binding.toolbarLayout.toolbar)
-        NavigationUI.setupActionBarWithNavController(requireActivity() as MainActivity,binding.root.findNavController())
-        (requireActivity() as MainActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
-        binding.toolbarLayout.toolbar.title = null
-        binding.toolbarLayout.toolbar.setNavigationOnClickListener {
-            it.findNavController().popBackStack()
-        }
-        setHasOptionsMenu(true)
+        (requireActivity() as AppCompatActivity).supportActionBar?.setBackgroundDrawable(
+            ResourcesCompat.getDrawable(
+                requireContext().resources,
+                R.drawable.shape_toolbar_search, null
+            )
+        )
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -60,9 +59,11 @@ class SearchFragment : Fragment() {
         txtSearch.setHintTextColor(Color.LTGRAY)
         txtSearch.hint = getString(R.string.search_title)
 
-        sv.setSearchableInfo(_searchManager.getSearchableInfo(
-            ComponentName(requireContext(), MainActivity::class.java)
-        ))
+        sv.setSearchableInfo(
+            _searchManager.getSearchableInfo(
+                ComponentName(requireContext(), MainActivity::class.java)
+            )
+        )
 
         item.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
             override fun onMenuItemActionExpand(item: MenuItem?): Boolean {
@@ -70,7 +71,7 @@ class SearchFragment : Fragment() {
             }
 
             override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
-                if(this@SearchFragment.isAdded) {
+                if (this@SearchFragment.isAdded) {
                     (requireActivity() as MainActivity).onBackPressed()
                 } else {
                     item?.setOnActionExpandListener(null)
@@ -86,7 +87,7 @@ class SearchFragment : Fragment() {
 
         //Update search text
         txtSearch.post {
-            if(!TextUtils.isEmpty(args.query)) {
+            if (!TextUtils.isEmpty(args.query)) {
                 txtSearch.text.clear()
                 txtSearch.text = txtSearch.text.append(args.query)
                 txtSearch.setSelection(txtSearch.text.length)

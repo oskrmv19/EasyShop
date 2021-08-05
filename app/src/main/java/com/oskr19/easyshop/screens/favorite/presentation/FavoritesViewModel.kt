@@ -7,10 +7,8 @@ import com.oskr19.easyshop.core.presentation.viewmodel.BaseViewModel
 import com.oskr19.easyshop.screens.common.dto.ProductSearch
 import com.oskr19.easyshop.screens.common.mapper.ProductUIMapper
 import com.oskr19.easyshop.screens.favorite.domain.usecase.GetFavoritesUseCase
-import com.oskr19.easyshop.screens.lately_seen.domain.usecase.GetLatelySeenUseCase
 import com.oskr19.easyshop.screens.favorite.domain.usecase.RemoveAllFavoritesUseCase
 import com.oskr19.easyshop.screens.favorite.presentation.state.NoFavoritesState
-import com.oskr19.easyshop.screens.favorite.presentation.state.NoLatelySeenState
 import com.oskr19.easyshop.screens.search.presentation.model.ProductUI
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch

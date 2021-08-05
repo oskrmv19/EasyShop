@@ -8,9 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.navigation.ui.NavigationUI
 import com.oskr19.easyshop.MainActivity
-import com.oskr19.easyshop.R
 import com.oskr19.easyshop.core.presentation.extensions.showHide
 import com.oskr19.easyshop.databinding.FragmentCategoriesBinding
 import com.oskr19.easyshop.screens.categories.presentation.adapter.CategoryAdapter
@@ -22,7 +20,7 @@ import javax.inject.Inject
 class CategoriesFragment : Fragment() {
 
     lateinit var binding: FragmentCategoriesBinding
-    val args by navArgs<CategoriesFragmentArgs>()
+    private val args by navArgs<CategoriesFragmentArgs>()
     val viewModel by activityViewModels<CategoriesViewModel>()
 
     @Inject
@@ -46,15 +44,8 @@ class CategoriesFragment : Fragment() {
     }
 
     private fun setUpToolbar() {
-        (requireActivity() as MainActivity).setSupportActionBar(binding.toolbarLayout.toolbar)
-        NavigationUI.setupActionBarWithNavController(
-            requireActivity() as MainActivity,
-            binding.root.findNavController()
-        )
-        binding.toolbarLayout.toolbar.title = getString(R.string.categories)
-        binding.toolbarLayout.toolbar.setNavigationOnClickListener {
-            it.findNavController().popBackStack()
-        }
+        (requireActivity() as MainActivity).supportActionBar?.setDisplayShowTitleEnabled(true)
+        (requireActivity() as MainActivity).supportActionBar?.customView?.showHide(false)
     }
 
     private fun initViews() {
@@ -67,30 +58,43 @@ class CategoriesFragment : Fragment() {
 
     private fun setListeners() {
         binding.listView.setOnItemClickListener { _, view, position, _ ->
-            val action = CategoriesFragmentDirections.categoriesToCategories(adapter.getItem(position).id)
+            val action = CategoriesFragmentDirections.categoriesToCategories()
+            action.categoryId = adapter.getItem(position).id
             view.findNavController().navigate(action)
         }
     }
 
     private fun observeViewModel() {
-        if (args.categoryId.isEmpty()) {
+        if (args.categoryId.isNullOrEmpty()) {
             viewModel.getCategories().observe(viewLifecycleOwner, { value ->
                 value?.let {
                     adapter.setData(it)
                 }
             })
         } else {
-            viewModel.getCategoryInfo(args.categoryId).observe(viewLifecycleOwner, { value ->
-                value?.let {
-                    if (it.childrenCategories.isEmpty()) {
-                        val action = CategoriesFragmentDirections.categoriesToResult("", "", value.id)
-                        binding.root.findNavController().navigate(action)
-                    } else {
-                        adapter.setData(it.childrenCategories)
-                    }
+            viewModel.getCategoryInfo(args.categoryId?:"").observe(viewLifecycleOwner,::observeCategory)
+        }
+    }
 
+    private fun observeCategory(category: Category?) {
+        category?.let {
+            when {
+                viewModel.isLastCategory -> {
+                    viewModel.isLastCategory = false
+                    val size = category.pathFromRoot?.size?:2
+                    viewModel.getCategoryInfo(category.pathFromRoot?.get(size-2)?.id?:args.categoryId?:category.id).observe(viewLifecycleOwner,::observeCategory)
                 }
-            })
+                it.childrenCategories.isEmpty() -> {
+                    viewModel.isLastCategory = true
+                    val action = CategoriesFragmentDirections.categoriesToResult("", "", category.id)
+                    binding.root.findNavController().navigate(action)
+                }
+                else -> {
+                    viewModel.isLastCategory = false
+                    adapter.setData(it.childrenCategories)
+                }
+            }
+
         }
     }
 }

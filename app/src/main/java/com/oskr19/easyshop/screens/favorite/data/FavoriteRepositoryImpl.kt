@@ -8,7 +8,6 @@ import com.oskr19.easyshop.screens.common.dto.ProductSearch
 import com.oskr19.easyshop.screens.favorite.data.local.FavoriteDao
 import com.oskr19.easyshop.screens.favorite.data.local.FavoriteEntity
 import com.oskr19.easyshop.screens.favorite.data.remote.FavoriteAPI
-import com.oskr19.easyshop.screens.lately_seen.data.remote.LatelySeenAPI
 import com.oskr19.easyshop.screens.favorite.domain.repository.FavoriteRepository
 import com.oskr19.easyshop.screens.favorite.domain.request.FavoriteRequest
 import kotlinx.coroutines.flow.Flow

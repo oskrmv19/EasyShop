@@ -3,7 +3,6 @@ package com.oskr19.easyshop.screens.favorite.domain.usecase
 import com.oskr19.easyshop.core.domain.usecase.BaseUseCase
 import com.oskr19.easyshop.screens.common.dto.ProductSearch
 import com.oskr19.easyshop.screens.favorite.domain.repository.FavoriteRepository
-import com.oskr19.easyshop.screens.lately_seen.domain.usecase.GetLatelySeenUseCase
 import kotlinx.coroutines.flow.Flow
 
 /**

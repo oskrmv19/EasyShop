@@ -12,11 +12,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.navigation.ui.NavigationUI
 import androidx.viewpager2.widget.ViewPager2
 import com.oskr19.easyshop.MainActivity
 import com.oskr19.easyshop.R
-import com.oskr19.easyshop.core.domain.Constants
 import com.oskr19.easyshop.core.domain.Constants.FEATURES_SIZE
 import com.oskr19.easyshop.core.presentation.dialog.DialogWindow
 import com.oskr19.easyshop.core.presentation.dialog.FullActions
@@ -63,15 +61,8 @@ class DetailFragment : Fragment() {
     }
 
     private fun setupToolbar() {
-        (requireActivity() as MainActivity).setSupportActionBar(binding.toolbarLayout.toolbar)
-        NavigationUI.setupActionBarWithNavController(
-            requireActivity() as MainActivity,
-            binding.root.findNavController()
-        )
-        binding.toolbarLayout.toolbar.title = getString(R.string.details)
-        binding.toolbarLayout.toolbar.setNavigationOnClickListener {
-            it.findNavController().popBackStack()
-        }
+        (requireActivity() as MainActivity).supportActionBar?.setDisplayShowTitleEnabled(true)
+        (requireActivity() as MainActivity).supportActionBar?.customView?.showHide(false)
     }
 
     private fun initViews() {

@@ -8,7 +8,6 @@ import com.oskr19.easyshop.core.presentation.viewmodel.BaseViewModel
 import com.oskr19.easyshop.screens.categories.domain.usecase.GetCategoriesUseCase
 import com.oskr19.easyshop.screens.categories.domain.usecase.GetCategoryInfoUseCase
 import com.oskr19.easyshop.screens.common.dto.Category
-import com.oskr19.easyshop.screens.common.dto.DetailResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
@@ -27,6 +26,7 @@ class CategoriesViewModel @Inject constructor(
     private val getCategoryInfoUseCase: GetCategoryInfoUseCase
 ) : BaseViewModel(application) {
 
+    var isLastCategory = false
     private var currentChildren = listOf<Category>()
 
     fun getCategories(): LiveData<List<Category>> {
@@ -53,13 +53,10 @@ class CategoriesViewModel @Inject constructor(
                 .onEmpty { setEventError(Failure.ServerError()) }
                 .catch { handleFailure(it as Failure) }
                 .collect {
-                    categories.postValue(it)
-                    currentChildren = it.childrenCategories ?: listOf()
-                    setEventFinished()
+                        categories.postValue(it)
+                        setEventFinished()
                 }
         }
         return categories
     }
-
-    fun getCategoryChildren() = currentChildren
 }
