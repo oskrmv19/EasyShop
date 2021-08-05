@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="orange">#FF9500</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#212121</color>
+    <color name="gray">#888B90</color>
+    <color name="rename">#3F51B5</color>
+    <color name="light_gray">#DCDCDF</color>
+    <color name="orange_opaque">#72FFEACC</color>
+    <color name="light_gray_super">#EFEDED</color>
+    <color name="middle_gray">#B5B5B5</color>
+    <color name="odd_orange">#FBB045</color>
+    <color name="even_orange">#FFC97E</color>
+    <color name="light_orange">#FFE3BC</color>
+    <color name="window_background">#F9F9F9</color>
+    <color name="transparentPopup">#A3000000</color>
+</resources>
