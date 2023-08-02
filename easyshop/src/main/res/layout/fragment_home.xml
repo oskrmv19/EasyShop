@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.oskr19.easyshop.core.presentation.viewmodel.BaseViewModel" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".screens.common.HomeFragment">
+
+        <!--
+        <include
+            android:id="@+id/searchToolbar"
+            layout="@layout/search_toolbar" />
+        -->
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/mg_xs"
+                android:showHide="@{viewModel.state.finished}">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/favoriteContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/mg_xs"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/textViewFavorite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/mg_xs"
+                        android:text="@string/favorites"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/divider"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="@dimen/mg_xxs"
+                        android:background="@color/light_gray"
+                        app:layout_constraintTop_toBottomOf="@id/textViewFavorite" />
+
+                    <TextView
+                        android:id="@+id/textViewRemoveAll"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/mg_xs"
+                        android:text="@string/remove_all"
+                        android:textColor="@color/odd_orange"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="@+id/textViewFavorite"
+                        app:layout_constraintStart_toEndOf="@id/textViewFavorite"
+                        app:layout_constraintTop_toTopOf="@+id/textViewFavorite" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/mg_xs"
+                        android:layout_marginTop="@dimen/mg_xs"
+                        android:visibility="invisible"
+                        android:minHeight="150dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/divider"
+                        tools:itemCount="1"
+                        tools:listitem="@layout/vertical_product_item" />
+
+                    <TextView
+                        android:id="@+id/textViewNoFavorites"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/no_favorites"
+                        android:textColor="?android:attr/textColorSecondary"
+                        android:visibility="visible"
+                        app:drawableTopCompat="@drawable/ic_empty_list"
+                        app:layout_constraintBottom_toBottomOf="@id/recyclerView"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/recyclerView" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/latelyContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/mg_sm"
+                    android:layout_marginBottom="@dimen/mg_xlg"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/favoriteContent"
+                    app:layout_constraintVertical_bias="0.0">
+
+                    <TextView
+                        android:id="@+id/textViewLately"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/mg_xs"
+                        android:text="@string/lately"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/divider1"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="@dimen/mg_xxs"
+                        android:background="@color/light_gray"
+                        app:layout_constraintTop_toBottomOf="@id/textViewLately" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerView1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/mg_xs"
+                        android:nestedScrollingEnabled="true"
+                        app:layout_constraintTop_toBottomOf="@id/divider1"
+                        tools:itemCount="1"
+                        tools:listitem="@layout/horizontal_product_item" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+        <include
+            android:id="@+id/states"
+            layout="@layout/layout_states"
+            android:visibility="gone" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

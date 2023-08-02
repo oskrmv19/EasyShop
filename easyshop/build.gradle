@@ -1,0 +1,110 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-kapt'
+    id 'kotlin-android'
+    id 'org.jetbrains.kotlin.android'
+    id 'androidx.navigation.safeargs.kotlin'
+    id 'dagger.hilt.android.plugin'
+}
+
+android {
+    namespace 'com.oskr19.easyshop'
+    compileSdkVersion 33
+
+    defaultConfig {
+        minSdkVersion 23
+        targetSdkVersion 33
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "BASE_URL", "\"https://api.mercadolibre.com\""
+        }
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "BASE_URL", "\"https://api.mercadolibre.com\""
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    kapt {
+        correctErrorTypes true
+    }
+
+    viewBinding {
+        enabled = true
+    }
+
+    buildFeatures {
+        buildConfig true
+        dataBinding true
+        viewBinding true
+    }
+}
+
+dependencies {
+    implementation libs.misc.recyclerview
+
+    implementation libs.misc.kotlinStdlib
+    implementation libs.androidx.ktx
+    implementation libs.misc.appcompat
+    implementation libs.google.material
+    implementation libs.misc.constraint
+    implementation libs.misc.swiperefreshlayout
+
+    //Room
+    implementation libs.misc.room.runtime
+    kapt(libs.misc.room.compiler)
+    implementation libs.misc.room.ktx
+
+    //Hilt
+    implementation libs.google.hilt
+    kapt libs.google.hilt.compiler
+
+    // Activity KTX for viewModels()
+    implementation libs.misc.ktx.activity
+    implementation libs.misc.ktx.fragment
+    implementation libs.misc.ktx.lifecycle
+
+    //Timber
+    implementation libs.misc.timber
+
+    //Gson
+    implementation libs.misc.gson
+
+    //Coroutines
+    implementation libs.jetbrains.kotlinx.coroutines.core
+    implementation libs.jetbrains.kotlinx.coroutines.android
+
+    //Lifecycle
+    implementation libs.misc.lifecycle.extensions
+
+    //Retrofit
+    implementation libs.misc.retrofit
+    implementation libs.misc.retrofit.gson
+    implementation libs.squareup.okhttp3
+    implementation libs.squareup.okhttp3.logging
+
+    //Navigation
+    implementation libs.misc.navigation.fragment
+    implementation libs.misc.navigation.ui
+
+    //Glide
+    implementation libs.bumptech.glide
+    kapt(libs.bumptech.glide.compiler)
+
+    //Viewpager2
+    implementation libs.misc.viewpager2
+}
