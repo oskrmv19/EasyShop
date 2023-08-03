@@ -1,0 +1,76 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.Normal" parent="Theme.MaterialComponents.DayNight">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/orange</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorPrimaryVariant">@color/orange_opaque</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/white</item>
+        <item name="colorSecondaryVariant">@color/light_gray</item>
+        <item name="colorOnSecondary">@color/black</item>
+
+        <item name="android:textColorPrimary">@color/black</item>
+        <item name="android:textColorSecondary">@color/gray</item>
+        <item name="android:textColorTertiary">@color/light_gray</item>
+
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">?attr/colorPrimary</item>
+        <item name="colorControlNormal">@color/orange</item>
+    </style>
+
+    <style name="Theme.Normal.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.Normal.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.Normal.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="ToolbarSearchStyle" parent="@style/ThemeOverlay.AppCompat.Light">
+        <item name="titleTextColor">?attr/colorOnSecondary</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:titleTextStyle">@style/TextAppearance.AppCompat.Light.SearchResult.Title</item>
+    </style>
+
+    <style name="Toolbar" parent="ThemeOverlay.AppCompat.Light">
+        <item name="titleTextColor">@color/black</item>
+        <item name="actionMenuTextColor">?attr/colorPrimary</item>
+        <item name="android:actionMenuTextColor">?attr/colorPrimary</item>
+        <item name="colorOnPrimary">@color/orange</item>
+        <item name="colorSecondary">@color/orange</item>
+    </style>
+
+    <style name="TableLayoutThemeOrange" parent="Theme.Normal">
+        <item name="colorPrimaryDark">@color/odd_orange</item>
+        <item name="colorPrimary">@color/even_orange</item>
+        <item name="colorSecondary">@color/even_orange</item>
+        <item name="colorSecondaryVariant">@color/light_orange</item>
+        <item name="titleTextColor">@color/black</item>
+        <item name="subtitleTextColor">@color/gray</item>
+    </style>
+
+    <style name="TableLayoutThemeGray" parent="Theme.Normal">
+        <item name="colorPrimaryDark">@color/middle_gray</item>
+        <item name="colorPrimary">@color/light_gray</item>
+        <item name="colorSecondary">@color/light_gray</item>
+        <item name="colorSecondaryVariant">@color/light_gray_super</item>
+        <item name="titleTextColor">@color/black</item>
+        <item name="subtitleTextColor">@color/gray</item>
+    </style>
+
+    <style name="Text">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="Text.Bold" parent="Text">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+</resources>
